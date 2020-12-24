@@ -1,0 +1,75 @@
+{
+    "private": true,
+    "name": "e-speech",
+    "description": "e-pidato Bappeda Provinsi Jambi",
+    "version": "2.0.0",
+    "engines": {
+        "node": "8.x"
+    },
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "postinstall": "npm run prod",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-class-properties": "^7.10.4",
+        "@babel/preset-react": "^7.10.4",
+        "axios": "^0.19.2",
+        "bootstrap": "^4.5.2",
+        "cross-env": "^7.0",
+        "jquery": "^3.5.1",
+        "laravel-mix": "^5.0.1",
+        "lodash": "^4.17.19",
+        "popper.js": "^1.12",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "resolve-url-loader": "^3.1.0",
+        "sass": "^1.26.10",
+        "sass-loader": "^8.0.0"
+    },
+    "dependencies": {
+        "@feuer/react-tabs": "^0.1.9",
+        "dotenv": "^8.2.0",
+        "downloadjs": "^1.4.7",
+        "js-cookie": "^2.2.1",
+        "js-file-download": "^0.4.12",
+        "jsonwebtoken": "^8.5.1",
+        "moment": "^2.27.0",
+        "react-animations": "^1.0.0",
+        "react-easy-crop": "^3.1.1",
+        "react-fade-in": "^1.1.0",
+        "react-flash-message": "^1.0.2",
+        "react-hook-form": "^5.7.2",
+        "react-image-crop": "^8.6.5",
+        "react-lazyload": "^3.0.0",
+        "react-loading": "^2.0.3",
+        "react-loading-overlay": "^1.0.1",
+        "react-lottie": "^1.2.3",
+        "react-modal": "^3.11.2",
+        "react-notifications-menu": "^1.0.1",
+        "react-pdf": "^4.2.0",
+        "react-redux": "^7.2.1",
+        "react-router": "^5.2.0",
+        "react-router-dom": "^5.2.0",
+        "react-spinners": "^0.8.3",
+        "react-toastify": "^5.5.0",
+        "react-transition-group": "^4.4.1",
+        "redux": "^4.0.5",
+        "use-error-boundary": "^2.0.4",
+        "uuid": "^8.3.0"
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env",
+            "@babel/preset-react"
+        ],
+        "plugins": [
+            "@babel/plugin-proposal-class-properties"
+        ]
+    }
+}
