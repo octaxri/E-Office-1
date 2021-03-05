@@ -6,21 +6,14 @@ import { Link } from 'react-router-dom';
 import cookie from 'js-cookie';
 
 import FadeIn from "react-fade-in";
-import Lottie from "react-lottie";
-import * as loading from "../../components/loading.json"
+// import Lottie from "react-lottie";
+// import * as loading from "../../components/loading.json"
 import Auth from '../../navs/auth/Auth';
 import Axios from 'axios';
 import UserNotification from '../../components/notification/notification';
 import Navbar from '../../navs/Navbar';
-
-const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: loading.default,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-};
+import Waiting from '../../components/waiting/waiting';
+import ItemWTooltip from '../../components/tooltip/tooltip';
 
 class Home extends Component {
 
@@ -32,23 +25,24 @@ class Home extends Component {
             profile: {},
             biography: {},
             lastDispatch: {},
-            permissions: {}
+            permissions: {},
+            loadState: ''
         };
     }
 
     componentDidMount = async () => {
         await Axios.post('/api/profile-data')
-            .then(res => this.setState({profile : res.data}))
+            .then(res => this.setState({profile : res.data, loadState: 'user'}))
 
         await Axios.get('/api/biography')
-            .then(res => this.setState({biography : res.data}))
+            .then(res => this.setState({biography : res.data, loadState: 'profile'}))
 
         await Axios.get('/api/history/last-dispatch')
-            .then(res => this.setState({lastDispatch : res.data}))
+            .then(res => this.setState({lastDispatch : res.data, loadState: 'dispatch'}))
 
         await Axios.get('/api/permissions/user-permissions')
             .then(res => {
-                this.setState({permissions : res.data})
+                this.setState({permissions : res.data, loadState: 'permissions'})
             })
             .catch(error => this.setState({permissions : error.response.data}))
 
@@ -68,7 +62,7 @@ class Home extends Component {
     renderProfileWidget(){
         let profile   = this.state.profile;
         return (
-            <div className="shadow">
+            <div className="shadow card" style={{minHeight:'80vh',maxHeight:'100vh'}}>
                 <img className="card-img-top" src={"/argon/img/background/sakura.png"} alt="Card image cap"/>
                 <div className="card-body bg-white">
                     <div className="media justify-content-center mt--6">
@@ -84,18 +78,27 @@ class Home extends Component {
                     <p className="text-muted text-uppercase ls-2 text-center" style={{fontSize: '0.6em'}}>{ profile.me.email }</p>
                     <div className="row my-4">
                         <div className="col text-center">
-                        <small className="text-uppercase ls-2 text-muted" style={{fontSize: '0.7em'}}>Role</small> <br/>
-                            <small className="text-uppercase ls-2 text-dark" style={{fontSize: '0.7em'}}>
+                            <small className="text-uppercase ls-2 text-muted" style={{fontSize: '0.6em'}}>Role :</small> <br/>
+                            <small className="text-uppercase ls-2 text-darker font-weight-600" style={{fontSize: '0.7em'}}>
                                 {profile.role.role_data && profile.role.role_data.name ? profile.role.role_data.name : null}
                             </small><br/>
                         </div>
                         <div className="col text-center">
-                            <small className="text-uppercase ls-2 text-muted" style={{fontSize: '0.7em'}}>Jabatan <br/>
-                                <span className="text-dark">{profile.occupation.error ? null : profile.occupation.data.occupation_data.name}</span>
+                            <small className="text-uppercase ls-2 text-muted" style={{fontSize: '0.6em'}}>occupation : </small><br/>
+                            <small className="text-uppercase ls-2 text-darker" style={{fontSize: '0.7em'}}>
+                                <span className="text-darker font-weight-600">{profile.occupation.error ? null : profile.occupation.data.occupation_data.name}</span>
                             </small>
                         </div>
                     </div>
-                    <Link to='/user/profile' className="btn btn-outline-darker btn-block">DETAIL AKUN</Link>
+                    <div className="row my-4">
+                        <div className="col text-center">
+                            <small className="text-uppercase ls-2 text-muted" style={{fontSize: '0.6em'}}>Department :</small> <br/>
+                            <small className="text-uppercase ls-2 text-darker font-weight-600" style={{fontSize: '0.7em'}}>
+                                {profile.department.data ? profile.department.data.department_name : '-'}
+                            </small><br/>
+                        </div>
+                    </div>
+                    <Link to='/user/profile' className="btn btn-outline-darker btn-block ls-1">MY PROFILE</Link>
                 </div>
             </div>
         )
@@ -127,7 +130,7 @@ class Home extends Component {
                         <Link to="/admin/speech-archive">
                             <div className="card-body text-center shadow bg-gradient-purple text-white">
                                 <i className="fas fa-file-contract fa-3x"></i>
-                                <h4 className="mt-2 text-white text-uppercase">sekretariat</h4>
+                                <h4 className="mt-2 text-white text-uppercase">archive</h4>
                             </div>
                         </Link>
                     </div>
@@ -140,32 +143,27 @@ class Home extends Component {
         let last = this.state.lastDispatch
         return (
         <Fragment>
-            <div className="row">
+            <div className="row pt-md-7 pt-lg-7">
                 <div className="col-lg-4 align-content-end">
-                    <div style={{background: "url(/argon/img/background/7971.jpg)",backgroundSize:"cover",backgroundRepeat: "no-repeat"}} className="shadow mb-3" height="100">
-
-                        {/* <div className="d-lg-block d-sm-none">
-                            <UserNotification
-                                notificationCount={8}
-                                color={'text-white'}/>
-                        </div> */}
+                    <div style={{background: "url(/argon/img/background/mountain-two.jpg)",backgroundSize:"cover",backgroundRepeat: "no-repeat",height:'80vh'}} className="shadow mb-3">
 
                         <div className="card-body pt-8">
                             <div className="item pt-8">
                                 <h4 className="display-2 text-white font-weight-300 ls-2 pt-6">HOME</h4>
-                                <h4 className="text-white font-weight-500 mb-0 ls-1">Selamat Datang di aplikasi E-PIDATO</h4>
+                                <h4 className="text-white font-weight-500 mb-0 ls-1">Welcome to Open E-Office Project</h4>
                             </div>
                         </div>
                     </div>
 
                 </div>
                 <div className="col-lg-4 ">
+                    {/* <div className="bg-white rounded shadow" style={{maxHeight:'80vh'}}> */}
                     <div className="mb-3">
-                        <div className="card-stats bg-gradient-danger shadow text-white rounded">
+                        <div className="card-stats bg-gradient-danger text-white rounded">
                             <div className="card-body">
                                 <div className="row mb-0">
                                     <div className="col my-0">
-                                        <h5 className="card-title text-uppercase mb-0 text-white">Total Disposisi masuk</h5>
+                                        <h5 className="card-title text-uppercase mb-0 text-white">Total Dipatches</h5>
                                         <span className="display-2 font-weight-bold mb-0">0 </span>
                                     </div>
                                     <div className="col-auto align-content-center flex">
@@ -173,35 +171,19 @@ class Home extends Component {
                                     </div>
                                 </div>
                                 <p className="mb-0 text-sm">
-                                    <span className="text-nowrap">perintah di-disposisikan </span>
-                                    <small style={{fontSize: '0.6em'}} className="mt-0 text-uppercase">Periode {moment().format('MMMM YYYY')}</small>
+                                    <small style={{fontSize: '0.6em'}} className="mt-0 text-uppercase">Period : {moment().format('MMMM YYYY')}</small>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* <div className="row">
-                        <div className="col-lg-6 col-sm-6 mb-3">
-                                <div className="card-body text-center bg-white shadow bg-gradient-red text-white">
-                                    <i className="fas fa-chart-line fa-3x"></i>
-                                    <h4 className="mt-2 text-white text-uppercase">Aktivitas</h4>
-                                </div>
-                        </div>
-                        <div className="col-lg-6 col-sm-6 mb-3">
-                                <div className="card-body text-center bg-gradient-info bg-white text-white">
-                                    <i className="fas fa-bell fa-3x"></i>
-                                    <h4 className="mt-2 text-white">NOTIFIKASI</h4>
-                                </div>
-                        </div>
-                    </div> */}
-
                     <div className="row mb-3">
                         <div className="col-lg-12 col-sm-6">
-                        <div className="card-stats bg-gradient-purple shadow rounded">
+                        <div className="card-stats bg-gradient-purple rounded">
                             <div className="card-body">
                                 <div className="row mb-0">
                                     <div className="col my-0">
-                                        <h5 className="card-title text-uppercase text-muted mb-0 text-white">Disposisi balik</h5>
+                                        <h5 className="card-title text-uppercase text-muted mb-0 text-white">Revision Request</h5>
                                         <span className="display-2 font-weight-bold mb-0 text-primary  text-white">0 </span>
                                     </div>
                                     <div className="col-auto align-content-center flex">
@@ -209,8 +191,7 @@ class Home extends Component {
                                     </div>
                                 </div>
                                 <p className="mb-0 text-sm">
-                                    <span className="text-nowrap text-white">permohonan perbaikan dokumen</span>
-                                    <small style={{fontSize: '0.6em'}} className="text-muted mt-0 text-uppercase">Periode {moment().format('MMMM YYYY')}</small>
+                                    <small style={{fontSize: '0.6em'}} className="text-white mt-0 text-uppercase">Periode {moment().format('MMMM YYYY')}</small>
                                 </p>
                             </div>
                         </div>
@@ -219,9 +200,9 @@ class Home extends Component {
 
                     <div className="row">
                         <div className="col">
-                            <div className="card shadow">
+                            <div className="card border-0">
                                 <div className="card-body">
-                                    <span className="h2">STATUS</span><span className="text-muted text-uppercase ls-2" style={{fontSize: '0.7em'}}>&emsp;disposisi terakhir kepada</span><br/>
+                                    <span className="h2">STATUS</span><span className="text-muted text-uppercase ls-2" style={{fontSize: '0.7em'}}>&emsp;last dispatch to</span><br/>
                                     <div className="row mt-2">
                                         <div className="col-auto">
                                             { last && last.receiver.profile && last.receiver.profile.profile_pic_url ?
@@ -231,7 +212,7 @@ class Home extends Component {
                                             }
                                         </div>
                                         <div className="col-auto">
-                                            <span className="h4">{last && last.receiver.name ? last.receiver.name : <small className="text-muted">Anda belum melakukan disposisi</small>}</span><br/>
+                                            <span className="h4">{last && last.receiver.name ? last.receiver.name : <small className="text-muted">No Dispatches yet</small>}</span><br/>
                                             <span className="text-muted text-uppercase ls-2" style={{fontSize: '0.6em'}}>
                                                 {last && last.receiver.role && last.receiver.role.role_data ? last.receiver.role.role_data.name : null}
                                             </span>
@@ -242,19 +223,25 @@ class Home extends Component {
                         </div>
                     </div>
 
-                    {/* <div className="row">
-                        <div className="col-lg-6 mb-3">
-                            <Link to="/logout" onClick={this.handleLogout}>
-                                <div className="card-body text-center bg-white shadow bg-gradient-warning text-white">
-                                    <i className="fas fa-power-off fa-3x"></i>
-                                    <h4 className="mt-2 text-white">SIGN OUT</h4>
+                    <div className="row my-3">
+                        <div className="col-lg-6 col-sm-6">
+                            <Link to={'/'}>
+                                <div className="card-body text-center shadow bg-gradient-orange text-white rounded">
+                                    <i className="fas fa-chart-line fa-3x"></i>
+                                    <h5 className="mt-2 text-white text-uppercase ls-1">Activity Log</h5>
                                 </div>
                             </Link>
                         </div>
-                    </div> */}
+                    </div>
 
+                    {/* <ItemWTooltip
+                        component={<a data-tip data-for='id'> haha </a>}
+                        id={'id'}
+                        text={'only text'}
+                    /> */}
+                    {/* </div> */}
                 </div>
-                <div className="col-lg-4">
+                <div className="col-lg-4 h-100">
                     {this.renderProfileWidget()}
                 </div>
             </div>
@@ -267,25 +254,20 @@ class Home extends Component {
             return (
                 <Fragment>
                     <Auth active={5}/>
-                    <div className="main-content">
+                    <div className="main-content bg-white">
                     <Navbar/>
-                        <div className="header pt-md-7 pt-lg-7" ></div>
+                        <div className="header"></div>
                             <div className="container-fluid">
                             {
                             !this.state.isReady
                             ?
-                                <FadeIn>
-                                    <h3 className="text-center text-dark text-uppercase ls-2 pt-md-7 pt-sm-7">Menyiapkan Data</h3>
-                                    <div className="d-flex justify-content-center align-items-center">
-                                        <Lottie options={defaultOptions} height={120} width={120} />
-                                    </div>
-                                </FadeIn>
-                            :
+                                <Waiting message={'getting the page ready'} loadingMessage={this.state.loadState} />
+                                :
                                 <FadeIn>
                                     {this.renderMainContent()}
+                                    <Footer />
                                 </FadeIn>
                             }
-                        <Footer />
                         </div>
                     </div>
                 </Fragment>

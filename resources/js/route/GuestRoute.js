@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 // import cookie from 'js-cookie';
 import { connect } from 'react-redux';
 
-let GuestRoute =({ component : Component, ...rest }) => {
+const GuestRoute =({ component : Component, ...rest }) => {
 
     // let token = cookie.get('token')
 

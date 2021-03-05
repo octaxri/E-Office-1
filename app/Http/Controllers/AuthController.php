@@ -117,7 +117,8 @@ class AuthController extends Controller
                     auth()->user()->roles,
                     auth()->user()->occupation,
                     auth()->user()->field,
-                    auth()->user()->subfield
+                    auth()->user()->subfield,
+                    auth()->user()->department
                     // auth()->user()->userRoles()
                 )
             );

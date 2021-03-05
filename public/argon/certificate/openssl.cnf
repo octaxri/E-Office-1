@@ -214,6 +214,10 @@ authorityKeyIdentifier=keyid,issuer
 basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 
+subjectKeyIdentifier=hash
+
+authorityKeyIdentifier=keyid:always,issuer:always
+
 [ v3_ca ]
 
 

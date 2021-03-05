@@ -1,5 +1,5 @@
-import React, { useState, useCallback, Fragment, useEffect, Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment, Component } from 'react'
+// import { connect } from 'react-redux'
 import Auth from '../../navs/auth/Auth'
 import FadeIn from 'react-fade-in'
 import Lottie from 'react-lottie'
@@ -8,20 +8,24 @@ import Navigation from '../../navs/navigation/navigation'
 
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import Axios from 'axios'
+import Axios from 'axios';
+import Navbar from '../../navs/Navbar';
 
-class UploadImage extends Component {
-    state = {
+export class UploadImage extends Component {
+    constructor(props) {
+    super(props);
+    this.state = {
         src: null,
         crop: {
-        unit: '%',
-        width: 30,
-        aspect: 16 / 16,
+            unit: '%',
+            width: 30,
+            aspect: 16 / 16,
         },
         menuIsActive:'',
         isReady:undefined,
         croppedImage: null,
         error :''
+        }
     };
 
     componentDidMount = () => {
@@ -72,54 +76,42 @@ class UploadImage extends Component {
     };
 
     getCroppedImg = (image, crop, fileName) => {
-        const canvas = document.createElement('canvas');
-        const scaleX = image.naturalWidth / image.width;
-        const scaleY = image.naturalHeight / image.height;
-        canvas.width = crop.width;
-        canvas.height = crop.height;
-        const ctx = canvas.getContext('2d');
+        const canvas    = document.createElement('canvas');
+        const scaleX    = image.naturalWidth / image.width;
+        const scaleY    = image.naturalHeight / image.height;
+        canvas.width    = crop.width;
+        canvas.height   = crop.height;
+        const ctx       = canvas.getContext('2d');
 
         ctx.drawImage(
-        image,
-        crop.x * scaleX,
-        crop.y * scaleY,
-        crop.width * scaleX,
-        crop.height * scaleY,
-        0,
-        0,
-        crop.width,
-        crop.height
+            image,
+            crop.x * scaleX,
+            crop.y * scaleY,
+            crop.width * scaleX,
+            crop.height * scaleY,
+            0,
+            0,
+            crop.width,
+            crop.height
         );
 
-        // return new Promise((resolve, reject) => {
-        // canvas.toBlob(blob => {
-        //     if (!blob) {
-        //     //reject(new Error('Canvas is empty'));
-        //     console.error('Canvas is empty');
-        //     return;
-        //     }
-        //     blob.name = fileName;
-        //     window.URL.revokeObjectURL(this.fileUrl);
-        //     this.fileUrl = window.URL.createObjectURL(blob);
-        //     resolve(this.fileUrl);
-        // }, 'image/jpeg');
         const reader = new FileReader()
         canvas.toBlob(blob => {
-        reader.readAsDataURL(blob)
-        reader.onloadend = () => {
-            this.dataURLtoFile(reader.result, 'cropped.jpg')
-        }
+            reader.readAsDataURL(blob)
+            reader.onloadend = () => {
+                this.dataURLtoFile(reader.result, 'cropped.jpg')
+            }
         });
     }
 
     async makeClientCrop(crop) {
         if (this.imageRef && crop.width && crop.height) {
-        const croppedImageUrl = await this.getCroppedImg(
-            this.imageRef,
-            crop,
-            'newFile.jpeg'
-        );
-        this.setState({ croppedImageUrl });
+            const croppedImageUrl = await this.getCroppedImg(
+                this.imageRef,
+                crop,
+                'newFile.jpeg'
+            );
+            this.setState({ croppedImageUrl });
         }
     }
 
@@ -231,5 +223,5 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(UploadImage);
+export default UploadImage;
 

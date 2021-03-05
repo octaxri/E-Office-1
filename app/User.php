@@ -142,6 +142,21 @@ class User extends Authenticatable implements JWTSubject
         }
     }
 
+    public function departmentData()
+    {
+        try{
+            $data = department::where('id', auth()->user()->department_id)->first();
+            if ( !$data ) {
+                return ['error' => 'data tidak ditemukan'];
+            } else {
+                return ['success' => 'data tersedia', 'data' => $data];
+            }
+        }
+        catch(Exception $e){
+            return $e;
+        }
+    }
+
     // public function role()
     // {
     //     return $this->hasMany(user_role::class, 'user_id', 'id');
@@ -165,6 +180,11 @@ class User extends Authenticatable implements JWTSubject
     public function role()
     {
         return $this->hasOne(user_role::class, 'user_id', 'id');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(department::class, 'department_id', 'id');
     }
 
     public static function profileData( $id )

@@ -34,14 +34,29 @@ class SpeechRequestController extends Controller
 
     public function speechRequestData(Request $request)
     {
-        return speech_request::with(['sender.occupation.occupationData','receiver.occupation.occupationData','origin.occupation.occupationData','speechRequestFile'])->where('id', $request->id)->first();
+        return speech_request::with(
+            [
+                'sender.occupation.occupationData',
+                'sender.profile',
+                'receiver.occupation.occupationData',
+                'receiver.profile',
+                'origin.occupation.occupationData',
+                'speechRequestFile'
+            ])
+            ->where('id', $request->id)
+            ->first();
     }
 
     public function sendRequestToThis()
     {
         $to = speech_request_send_order::where('refer_to_role_id', auth()->user()->mainRoleData()->role_id)->pluck('to_role_id')->first();
-        $to ? $list = user_role::with('roleData', 'userData')->where('role_id', $to)->get() : $list =  'Data Role Tidak ditemukan. Silahkan Hubungi Admin.';
-        return response()->json($list, 200);
+        if ($to) {
+            $list = user_role::with('roleData', 'userData.profile')->where('role_id', $to)->get();
+            return response()->json($list, 200);
+        } else {
+            $list =  'Data Role Tidak ditemukan. Silahkan Hubungi Admin.';
+            return response()->json(['error' => $list], 501);
+        }
     }
 
     public function createSpeechRequest(Request $request)
@@ -71,7 +86,7 @@ class SpeechRequestController extends Controller
 
             notification::notifyUser(auth()->user()->id, $request->to, 2, $speech->id);
 
-            return response()->json(['success' => 'Permintaan berhasil di-disposisikan!'], 200);
+            return response()->json(['success' => 'Document Request is forwarded!'], 200);
 
         }catch(Exception $e){
             return response()->json(['errors' => $e], 401);
@@ -107,13 +122,13 @@ class SpeechRequestController extends Controller
 
                 notification::notifyUser(auth()->user()->id, $request->to, 3, $dispatch->id);
 
-                return response()->json(['success' => 'Data berhasil di-disposisikan!'], 200);
+                return response()->json(['success' => 'Document is forwarded Successfuly!'], 200);
             }
             else {
-                return response()->json(['error' => 'Anda belum memilih target disposisi!']);
+                return response()->json(['error' => 'Document forward failed! Please check the form again.'], 422);
             }
         } catch(Exception $e) {
-            return response()->json(['error' => $e], 401);
+            return response()->json(['error' => $e], 400);
         }
     }
 

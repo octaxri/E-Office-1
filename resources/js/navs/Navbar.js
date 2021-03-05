@@ -17,6 +17,7 @@ class AuthNavbar extends Component {
         e.preventDefault();
         Axios.post('/api/auth/logout').then(cookie.remove('token'))
         this.props.logout();
+        this.props.clear_menu();
     }
 
     componentDidMount = async () => {
@@ -28,7 +29,7 @@ class AuthNavbar extends Component {
         let authUser = this.props.user;
         // console.log(authUser)
         return (
-            <nav className="navbar navbar-top navbar-expand-md navbar-light bg-white border-bottom d-sm-none d-lg-block shadow" id="navbar-main">
+            <nav className="navbar navbar-top navbar-expand-md navbar-light bg-white border-bottom d-none d-lg-block" id="navbar-main" style={{height:'80px', marginLeft:'250px' , position:'fixed'}}>
                 <div className="container-fluid">
                 <button className="btn btn-outline-darker" onClick={() => this.props.history.goBack()}><i className="fas fa-chevron-circle-left"></i> <span className="ls-2"> BACK</span></button>
                 <div className="navbar-search navbar-search-dark mr-3 d-none d-md-flex ml-lg-auto"></div>
@@ -84,7 +85,8 @@ let mapStateToProps = state => {
 
 let mapDispatchToProps = dispatch => {
     return {
-        logout: () => dispatch({type:"SET_LOGOUT"})
+        logout: () => dispatch({type:"SET_LOGOUT"}),
+        clear_menu : () =>dispatch({type:"NO_MENU"})
     }
 };
 

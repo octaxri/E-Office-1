@@ -15,19 +15,33 @@ const Guest = ({active}) => {
             menus.map( (m , index) => (
                 <Fragment key={index}>
                     <Link to={m.url}>
-                        <li className="nav-item py-2">
+                        <li className="nav-item">
                             {
                                 active == m.id ?
-                                <div className={`px-2 py-2 btn-outline-darker text-center active`}>
-                                    <i className={`fa-2x ${m.icon}`}></i>
-                                    <br/>
-                                    <span className="text-uppercase ls-2">{m.name}</span>
+                                <div className={`text-center`}>
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <div className="col-4 bg-dark text-white py-3 text-center" style={{maxWidth:'60px'}}>
+                                                <i className={`text-center ${m.icon}`}></i>
+                                            </div>
+                                            <div className="col bg-white py-3 text-yellow-calm text-left">
+                                                <span className="font-weight-500">{m.name}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 :
-                                <div className={`px-2 py-2 btn-outline-darker text-center`}>
-                                    <i className={`fa-2x ${m.icon}`}></i>
-                                    <br/>
-                                    <span className="text-uppercase ls-2">{m.name}</span>
+                                <div className={`text-center sidebar`}>
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <div className="col-4 bg-lighter text-yellow-calm py-3 text-center sidebar-icon" style={{maxWidth:'60px'}}>
+                                                <i className={`text-center ${m.icon}`}></i>
+                                            </div>
+                                            <div className="col bg-white py-3 text-darker text-left sidebar-menu-name">
+                                                <span className="font-weight-500">{m.name}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             }
                         </li>
@@ -38,15 +52,15 @@ const Guest = ({active}) => {
     }
 
     return (
-        <nav className="navbar navbar-vertical fixed-left navbar-expand-md bg-white navbar-light" id="sidenav-main">
-            <div className="container-fluid">
+        <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidenav-main">
+            <div className="container-fluid py-0 my-0">
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <a className="pt-0 d-lg-block d-sm-none" href="#">
-                    <img src="/argon/img/brand/epidato.svg" alt="..."/>
+                    <img className="img-fluid" src="/argon/img/brand/brand.jpg" style={{maxHeight:'150px', maxWidth:'150px'}} alt="..."/>
                 </a>
-                <div className="collapse navbar-collapse text-center" id="sidenav-collapse-main">
+                <div className="collapse navbar-collapse text-center bg-text" data-bg-text="OEP" id="sidenav-collapse-main">
 
                     <div className="navbar-collapse-header d-md-none">
                         <div className="row">

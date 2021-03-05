@@ -5,22 +5,22 @@ import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import UserNotification from '../../components/notification/notification';
 import cookie from 'js-cookie';
+import { shallowEqual, useSelector } from 'react-redux';
 
-const Auth = ({loggedIn, active}) => {
-    let [menus, setMenus] = useState([]);
+const Auth = ({active}) => {
 
-    useEffect(() => {
-        Axios.get('/api/menu-data')
-            .then(res => { setMenus(res.data) })
-    }, []);
+    const { loggedIn, menus } = useSelector(state => ({
+        loggedIn: state.auth.loggedIn,
+        menus: state.auth_menu.menu
+    }), shallowEqual);
 
-    const logout = () => ({type:"SET_LOGOUT"})
     const dispatch = useDispatch()
 
     const handleLogout = event => {
         event.preventDefault();
         Axios.post('/api/auth/logout').then(cookie.remove('token'))
-        dispatch(logout())
+        dispatch({type:"SET_LOGOUT"})
+        dispatch({type:"NO_MENU"})
     }
 
     const renderAuthMenu = () => {
@@ -29,19 +29,29 @@ const Auth = ({loggedIn, active}) => {
                 menu.map( m => (
                     <Fragment key={uuidv4()}>
                         <Link to={m.menu_data.url}>
-                            <li className="nav-item py-2">
+                            <li className="nav-item">
                                 {
                                     active == m.menu_id ?
-                                    <div className={`px-2 py-2 btn-outline-darker text-center active`}>
-                                        <i className={`fa-2x ${m.menu_data.icon}`}></i>
-                                        <br/>
-                                        <span className="text-uppercase ls-2">{m.menu_data.name}</span>
+                                    <div className={`text-center`}>
+                                            <div className="row">
+                                                <div className="col-4 bg-dark text-white py-3 text-center">
+                                                    <i className={`text-center ${m.menu_data.icon}`}></i>
+                                                </div>
+                                                <div className="col bg-white py-3 text-yellow-calm text-left">
+                                                    <span className="font-weight-500">{m.menu_data.name}</span>
+                                                </div>
+                                            </div>
                                     </div>
                                     :
-                                    <div className={`px-2 py-2 btn-outline-darker text-center`}>
-                                        <i className={`fa-2x ${m.menu_data.icon}`}></i>
-                                        <br/>
-                                        <span className="text-uppercase ls-2">{m.menu_data.name}</span>
+                                    <div className={`text-center sidebar`}>
+                                            <div className="row">
+                                                <div className="col-4 bg-lighter text-yellow-calm py-3 text-center sidebar-icon">
+                                                    <i className={`text-center ${m.menu_data.icon}`}></i>
+                                                </div>
+                                                <div className="col bg-white py-3 text-darker text-left sidebar-menu-name">
+                                                    <span className="font-weight-500">{m.menu_data.name}</span>
+                                                </div>
+                                            </div>
                                     </div>
                                 }
                             </li>
@@ -60,8 +70,8 @@ const Auth = ({loggedIn, active}) => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <a className="pt-0 d-lg-block d-sm-none" href="#">
-                    <img src="/argon/img/brand/epidato.svg" alt="..."/>
+                <a className="pt-0 d-lg-block d-sm-none d-md-none text-center" href="#">
+                    <img className="img-fluid" src="/argon/img/brand/brand.jpg" style={{maxHeight:'150px', maxWidth:'150px'}} alt="..."/>
                 </a>
 
                 <ul className="nav align-items-center d-md-none">
@@ -97,7 +107,7 @@ const Auth = ({loggedIn, active}) => {
                     </li>
                 </ul>
 
-                <div className="collapse navbar-collapse text-center" id="sidenav-collapse-main">
+                <div className="collapse navbar-collapse text-center bg-text" data-bg-text="OEP" id="sidenav-collapse-main">
 
                     <div className="navbar-collapse-header d-md-none">
                         <div className="row">
@@ -128,11 +138,12 @@ const Auth = ({loggedIn, active}) => {
     );
 }
 
-let mapStateToProps = state => {
-    return {
-        loggedIn: state.auth.loggedIn,
-        user: state.auth.user
-    };
-};
+// let mapStateToProps = state => {
+//     return {
+//         loggedIn: state.auth.loggedIn,
+//         user: state.auth.user,
+//         menu: state.auth_menu.menu
+//     };
+// };
 
-export default connect(mapStateToProps)(Auth);
+export default Auth;

@@ -23,7 +23,8 @@ const useModal = () => {
 
     function dismiss(el)
     {
-        el === true ? setAllowDismiss(true) : setAllowDismiss(false)
+        // el === true ? setAllowDismiss(true) : setAllowDismiss(false)
+        setAllowDismiss(el)
     }
 
     return { isShowing, toggle, response, isSuccess, message, isMessage, dismiss, allowDismiss}

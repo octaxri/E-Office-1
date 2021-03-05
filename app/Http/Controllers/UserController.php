@@ -68,7 +68,8 @@ class UserController extends Controller
                 'role'         => auth()->user()->mainRoleData(),
                 'occupation'   => auth()->user()->occupationData(),
                 'field'        => auth()->user()->fieldData(),
-                'subfield'     => auth()->user()->subfieldData()
+                'subfield'     => auth()->user()->subfieldData(),
+                'department'   => auth()->user()->departmentData()
             ])
         );
         // return User::profileData(auth()->user()->id);

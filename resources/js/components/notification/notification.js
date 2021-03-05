@@ -71,8 +71,8 @@ const UserNotification = (props) => {
     const notificationLink = () => {
         return (
             <Fragment>
-                <div className={`notification-dropdown ${isDropdownOpen ? null : 'd-none'}`} style={{zIndex:99999}}>
-                    <div className="dropdown-header text-muted">
+                <div className={`notification-dropdown ${isDropdownOpen ? null : 'd-none'}`} style={{zIndex:99999}} style={{maxHeight:'90vh', overflowY:'auto'}}>
+                    <div className="dropdown-header text-muted" style={{position:'sticky'}}>
                         <p className="ls-1 text-uppercase text-dark" style={{fontSize:'12px'}}>notifikasi</p>
                     </div>
                     <div className="mt-1 dropdown-divider"></div>
@@ -96,7 +96,7 @@ const UserNotification = (props) => {
 
     const notificationBell = () => {
         return (
-            <li ref={ref} key={key} className="nav-item dropdown" onClick={() => {setDropdownOpen(true), (isDropdownOpen ? null : getNotification()), refresh()}}>
+            <li ref={ref} key={key} className="nav-item dropdown mr-4" onClick={() => {setDropdownOpen(true), (isDropdownOpen ? null : getNotification()), refresh()}}>
                 {
                     counter > 0
                     ?
@@ -114,13 +114,14 @@ const UserNotification = (props) => {
 
     function useOnClickOutside(ref, handler) {
         useEffect(() => {
-            const listener = event => {
-              // Do nothing if clicking ref's element or descendent elements
-              if (!ref.current || ref.current.contains(event.target)) {
-                return;
-              }
 
-              handler(event);
+            const listener = event => {
+                // Do nothing if clicking ref's element or descendent elements
+                if (!ref.current || ref.current.contains(event.target)) {
+                return;
+                }
+
+                handler(event);
             };
 
             document.addEventListener('mousedown', listener);

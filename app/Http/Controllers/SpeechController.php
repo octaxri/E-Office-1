@@ -70,9 +70,23 @@ class SpeechController extends Controller
      */
     public function detail(Request $request)
     {
-        $speech     = speech::with(['sender.occupation.occupationData','sender.profile','sender.role.roleData','receiver.occupation.occupationData','receiver.role.roleData'])
-                            ->where(['to' => auth()->user()->id, 'id' => $request->id])
-                            ->first();
+        $speech     = speech::with(
+                            [
+                                'sender.occupation.occupationData',
+                                'sender.profile',
+                                'sender.role.roleData',
+                                'sender.field',
+                                'receiver.occupation.occupationData',
+                                'receiver.role.roleData',
+                                'receiver.field.fieldData',
+                                'receiver.profile'
+                            ])
+                        ->where(
+                            [
+                                'to' => auth()->user()->id,
+                                'id' => $request->id
+                            ])
+                        ->first();
 
         // $main_file = speech::speechMainFile($request->id);
 

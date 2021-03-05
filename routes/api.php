@@ -134,6 +134,10 @@ Route::group([ 'middleware' => 'api' ], function ($router)
 // Route::middleware('auth:api')->group(function () {
 //     Route::post('/menu-config/store', 'menuController@store');
 // });
+    Route::post('/demo/create-new', 'UserCertificateController@demoNewCertificate');
+    Route::post('/demo/sign-test', 'UserCertificateController@signTest');
+    Route::post('/demo/sign-test-selector', 'UserCertificateController@signTestSelector');
+    Route::post('/demo/content', 'UserCertificateController@content');
 
     Route::get('/data-opd/get', 'OpdController@acceptedAccount');
 

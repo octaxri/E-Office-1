@@ -27,7 +27,6 @@ import ModalSuccess from './components/modal/modal-success';
 import test from './components/modal/test';
 import dispatchDetail from './main/auth/speech/dispatch-detail';
 import Profile from './main/profile/profile';
-import uploadImage from './main/profile/uploadImage';
 import Certificate from './main/certificate/certificate';
 import dispatchHistory from './main/auth/history/dispatch-history';
 import UserDetail from './main/admin/user-detail';
@@ -39,6 +38,19 @@ import documentCheckWParam from './main/guest/document-check-w-param';
 import SpeechArchive from './main/admin/Speech-Archive';
 import AllUser from './main/admin/All-User';
 import SpeechArchiveDetail from './main/admin/Speech-Archive-Detail';
+import uploadImage from './main/profile/uploadImage';
+import Photo from './main/profile/upload';
+import UploadImage from './main/profile/uploadImage';
+import PdfSign from './main/guest/pdf/pdf-sign-test';
+import Signer from './main/guest/pdf';
+import About from './main/guest/about/about-me';
+import Me from './main/guest/about/me';
+import Education from './main/guest/about/education';
+import Skills from './main/guest/about/skills';
+import PastProjects from './main/guest/about/past-projects';
+import 'react-app-polyfill/stable';
+import ScrollToTop from './components/scroll/ScrollToTop';
+import Resume from './main/guest/about/resume';
 
 let token = cookie.get('token');
 
@@ -54,18 +66,60 @@ if(token){
     });
 }
 
+const interceptor = () => {
+    axios.interceptors.response.use(
+        response => { return response; },
+        error => {
+            if (
+                error.request.responseType === 'blob' &&
+                error.response.data instanceof Blob &&
+                error.response.data.type &&
+                error.response.data.type.toLowerCase().indexOf('json') != -1
+            )
+
+            {
+                return new Promise((resolve, reject) => {
+                    let reader = new FileReader();
+                    reader.onload = () => {
+                        error.response.data = JSON.parse(reader.result);
+                        resolve(Promise.reject(error));
+                    };
+
+                    reader.onerror = () => {
+                        reject(error);
+                    };
+
+                    reader.readAsText(error.response.data);
+                });
+            };
+
+            return Promise.reject(error);
+        }
+    );
+}
+
 let render = () => {
     ReactDOM.render(
         <Provider store={store}>
             <Router>
+            <ScrollToTop />
                 <Switch>
                     <Fragment>
                         {/* <Sidebar/> */}
                             {/* <div className="main-content"> */}
+
                                 <GuestRoute exact path='/' component={Welcome}/>
-                                <GuestRoute exact path='/register' component={Register}/>
+                                {/* <GuestRoute exact path='/register' component={Register}/> */}
                                 <GuestRoute exact path='/document/check' component={documentCheck}/>
                                 <GuestRoute exact path='/document/:id' component={documentCheckWParam}/>
+
+                                <GuestRoute exact path='/advanced-signing-demo' component={Signer}/>
+                                <GuestRoute exact path='/about' component={About}/>
+                                <GuestRoute exact path='/about/me' component={Me}/>
+                                <GuestRoute exact path='/about/education' component={Education}/>
+                                <GuestRoute exact path='/about/skills' component={Skills}/>
+                                <GuestRoute exact path='/about/projects' component={PastProjects}/>
+                                <GuestRoute exact path='/about/resume' component={Resume}/>
 
                                 <AuthRoute exact path='/home' component={Home}/>
                                 <AuthRoute exact path='/account-request' component={AccountRequest}/>
@@ -82,7 +136,8 @@ let render = () => {
                                 <AuthRoute exact path='/dispatch/detail/:id' component={dispatchDetail}/>
 
                                 <AuthRoute exact path='/user/profile' component={Profile}/>
-                                <AuthRoute exact path='/user/upload-image' component={uploadImage}/>
+                                <AuthRoute exact path='/user/upload-image' component={UploadImage}/>
+                                <AuthRoute exact path='/user/photo' component={Photo}/>
 
                                 <AuthRoute exact path='/user/certificate' component={Certificate}/>
 
@@ -106,14 +161,21 @@ let render = () => {
 };
 
 if(token){
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        interceptor()
+
         axios.post("/api/profile-data")
-        .then(res => {
-            store.dispatch({type: "SET_LOGIN", payload: res.data
-        });
+            .then(res => {
+                store.dispatch({type: "SET_LOGIN", payload: res.data});
+
+                axios.get('/api/menu-data')
+                    .then(res => {
+                        store.dispatch({type: "AUTH_MENU", payload: res.data})
+                })
         render();
     });
 }else{
+    interceptor()
     render();
 }
 

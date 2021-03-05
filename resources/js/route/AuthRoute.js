@@ -9,10 +9,11 @@ const AuthRoute = ({ component : Component, ...rest }) => {
     // let token = cookie.get('token')
     return (
       <Route {...rest} render={ props => rest.loggedIn
-        ? ( <Component { ...props } /> )
-        : ( <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+        ?
+            ( <Component { ...props } /> )
+        :
+            ( <Redirect to={{ pathname: "/", state: { from: props.location } }} /> )
             // window.location.replace("/")
-          )
         }
       />
     );
