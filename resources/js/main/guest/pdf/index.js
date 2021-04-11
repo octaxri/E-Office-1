@@ -87,7 +87,7 @@ const Signer = () => {
         return (
             <>
                 <Fade right>
-                <div className="card-body">
+                <div className="card-body" style={{overflowY:'auto', maxHeight:'90vh'}}>
                     <em><small className="text-lowercase text-darker">*Try to resize & all value will also changes</small></em>
                     <hr className="my-2" />
                     <h4 className="text-yellow-calm font-weight-600 text-uppercase">QR signature</h4>

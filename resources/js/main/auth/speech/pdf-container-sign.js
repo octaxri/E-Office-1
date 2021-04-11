@@ -44,7 +44,7 @@ const PdfContainerSign = ({isDataExist, pdfLoadMessage, url, noDataMessage, page
 
         return(
             <>
-                <h2 className="text-darker text-uppercase my-2 ls-2 text-center">{pdfLoadMessage}</h2>
+                <h2 className="text-darker text-uppercase my-2 py-3 ls-2 text-center">{pdfLoadMessage}</h2>
                 <Lottie options={defaultOptions} height={120} width={120} />
             </>
         )
@@ -52,7 +52,7 @@ const PdfContainerSign = ({isDataExist, pdfLoadMessage, url, noDataMessage, page
 
     return (
         <>
-            <h4 className="text-yellow-calm text-uppercase ls-2">Official <span className="text-darker ls-1">request document:</span></h4><br/>
+            {/* <h4 className="text-yellow-calm text-uppercase ls-2">Official <span className="text-darker ls-1">request document:</span></h4><br/> */}
             <div className="justify-content-center text-center">
                 <button
                     className="btn btn-no-bg shadow-none"
@@ -60,7 +60,9 @@ const PdfContainerSign = ({isDataExist, pdfLoadMessage, url, noDataMessage, page
                     disabled={pageNumber <= 1}
                     onClick={previousPage}
                 >
-                {pageNumber <= 1 ? null : <><small className="text-uppercase text-darker font-weight-600">Page -&nbsp;{pageNumber - 1}</small></> } <small className="text-uppercase text-darker font-weight-600">Previous</small>
+                {pageNumber <= 1
+                    ? null
+                    : <><small className="text-uppercase text-darker font-weight-600">Page -&nbsp;{pageNumber - 1}</small></> } <small className="text-uppercase text-darker font-weight-600">Previous&nbsp;</small>
                 </button>
                 <button
                     className="btn btn-no-bg shadow-none"
@@ -68,7 +70,7 @@ const PdfContainerSign = ({isDataExist, pdfLoadMessage, url, noDataMessage, page
                     disabled={pageNumber >= numPages}
                     onClick={nextPage}
                 >
-                <small className="text-uppercase text-darker font-weight-600">Next</small>
+                <small className="text-uppercase text-yellow-calm font-weight-600">Next&nbsp;</small>
                     {pageNumber >= numPages
                         ? null
                         :
@@ -90,7 +92,7 @@ const PdfContainerSign = ({isDataExist, pdfLoadMessage, url, noDataMessage, page
                                 loading={loader}
                             >
                                 <PdfSign qrRef={qrRef} dPos={(data)=>{setDPos({x:data.x, y:data.y}), transPos({x:data.x, y:data.y})}} />
-                            <Page width={size.width ? size.width : 1} pageNumber={pageNumber} renderMode="canvas" />
+                                <Page width={size.width ? size.width : 1} pageNumber={pageNumber} renderMode="canvas" />
                             </Document>
                         </div>
                         )}

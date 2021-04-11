@@ -73,11 +73,11 @@ const SpeechArchive = (props) => {
         setIsReady(true);
     }
 
-    const dipatchState = ({status, Svalue, Rvalue}) => {
+    const dispatchState = ({status, Svalue, Rvalue}) => {
         if (status === 3) {
             return (
                 <small className="bg-gradient-primary px-1 py-1 rounded text-white font-weight-500">
-                    <i className="fas fa-paperclip"></i> ditanda-tangani
+                    <i className="fas fa-paperclip"></i> document signed
                 </small>
             )
         }
@@ -89,7 +89,7 @@ const SpeechArchive = (props) => {
                 <div className="col col-sm-12 col-lg-auto">
                     {/* <div className="card-body"> */}
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary">{month!==null ? moment().month(month).format('MMMM') : 'Bulan'}</button>
+                            <button type="button" class="btn btn-primary">{month!==null ? moment().month(month).format('MMMM') : 'Month'}</button>
                             <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
@@ -104,7 +104,7 @@ const SpeechArchive = (props) => {
                         </div>
 
                         <div class="btn-group mx-2">
-                            <button type="button" class="btn btn-primary">{year!==null ? year : 'Tahun'}</button>
+                            <button type="button" class="btn btn-primary">{year!==null ? year : 'Year'}</button>
                             <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
@@ -130,7 +130,7 @@ const SpeechArchive = (props) => {
                         disabled={month == null || year == null ? true : false}
                         >
                         <i className="fas fa-print"></i>&nbsp;
-                        DOWNLOAD LAPORAN
+                        DOWNLOAD REPORT
                     </button>
                 </div>
 
@@ -157,7 +157,7 @@ const SpeechArchive = (props) => {
                                         <p className="text-darker font-weight-500">&emsp;{data.speech_data.sender.name}</p>
                                     </div>
                                 </div>
-                                    <small className="text-muted text-uppercase ls-2" style={{fontSize:'0.6em'}}>tema :</small>
+                                    <small className="text-muted text-uppercase ls-2" style={{fontSize:'0.6em'}}>subject :</small>
                                     <h3>{data.speech_data.speech_request.theme}</h3>
                                     <small className="text-muted">{data.speech_data.speech_request.event}</small>
                             </div>
@@ -168,7 +168,7 @@ const SpeechArchive = (props) => {
                                             { data.speech_main_file ?
                                                 <>
                                                 <small className="bg-gradient-primary px-1 py-1 rounded text-white font-weight-500">
-                                                    <i className="fas fa-paperclip"></i> 1 attachment
+                                                    <i className="fas fa-paperclip"></i> 1 document
                                                 </small>&nbsp;
                                                 </>
                                                 :
@@ -178,7 +178,7 @@ const SpeechArchive = (props) => {
                                                 </div>&nbsp;
                                                 </>
                                             }
-                                            { dipatchState({status: data.speech_data.status, Svalue: data.speech_data.sender.role.role_data.role_level, Rvalue: data.speech_data.receiver.role.role_data.role_level}) }
+                                            { dispatchState({status: data.speech_data.status, Svalue: data.speech_data.sender.role.role_data.role_level, Rvalue: data.speech_data.receiver.role.role_data.role_level}) }
                                         </div>
                                     </div>
                                     <div className="col-auto d-inline-flex">
@@ -196,7 +196,7 @@ const SpeechArchive = (props) => {
     }
 
     const {setActive, menuIsActive} = setActiveSidebar()
-    moment.locale('id');
+    moment.locale('en');
     return (
         <Fragment>
             <Auth active={menuIsActive}/>

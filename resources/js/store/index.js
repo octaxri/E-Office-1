@@ -9,6 +9,12 @@ let initialStates = {
     },
     auth_menu: {
         menu:[]
+    },
+    dispatch_queue: {
+        dispatch:[]
+    },
+    sign_queue: {
+        queue:[]
     }
 };
 

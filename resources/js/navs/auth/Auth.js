@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import UserNotification from '../../components/notification/notification';
 import cookie from 'js-cookie';
 import { shallowEqual, useSelector } from 'react-redux';
+import DocumentQueue from '../../components/queue/queue';
 
 const Auth = ({active}) => {
 
@@ -33,6 +34,7 @@ const Auth = ({active}) => {
                                 {
                                     active == m.menu_id ?
                                     <div className={`text-center`}>
+                                        <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-4 bg-dark text-white py-3 text-center">
                                                     <i className={`text-center ${m.menu_data.icon}`}></i>
@@ -41,20 +43,24 @@ const Auth = ({active}) => {
                                                     <span className="font-weight-500">{m.menu_data.name}</span>
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
                                     :
                                     <div className={`text-center sidebar`}>
+                                        <div className="container-fluid">
                                             <div className="row">
-                                                <div className="col-4 bg-lighter text-yellow-calm py-3 text-center sidebar-icon">
+                                                <div className="col-4 text-yellow-calm py-3 text-center sidebar-icon">
                                                     <i className={`text-center ${m.menu_data.icon}`}></i>
                                                 </div>
                                                 <div className="col bg-white py-3 text-darker text-left sidebar-menu-name">
                                                     <span className="font-weight-500">{m.menu_data.name}</span>
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
                                 }
                             </li>
+
                         </Link>
                     </Fragment>
                 ))
@@ -63,7 +69,7 @@ const Auth = ({active}) => {
     }
 
     return (
-        <nav className="navbar navbar-vertical fixed-left navbar-expand-md bg-white navbar-light" id="sidenav-main">
+        <nav className="navbar navbar-vertical fixed-left navbar-expand-md bg-white navbar-light border shadow" id="sidenav-main">
             <div className="container-fluid">
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,11 +77,12 @@ const Auth = ({active}) => {
                 </button>
 
                 <a className="pt-0 d-lg-block d-sm-none d-md-none text-center" href="#">
-                    <img className="img-fluid" src="/argon/img/brand/brand.jpg" style={{maxHeight:'150px', maxWidth:'150px'}} alt="..."/>
+                    <img className="img-fluid" src="/argon/img/brand/brand.png" style={{maxHeight:'150px', maxWidth:'150px'}} alt="..."/>
                 </a>
 
                 <ul className="nav align-items-center d-md-none">
-                <UserNotification notificationCount={8} color={'text-gray'}/>
+                <DocumentQueue color={'text-gray'}/>
+                <UserNotification color={'text-gray'}/>
                     <li className="nav-item dropdown">
                         <a className="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div className="media align-items-center">

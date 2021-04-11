@@ -14,7 +14,8 @@ class speech extends Model
         'speech_send_order_id',
         'sign_permission',
         'message',
-        'uuid'
+        'uuid',
+        'document_number'
     ];
 
     public function log()

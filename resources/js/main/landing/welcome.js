@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, useRef } from 'react';
 import axios from 'axios';
 import cookie from 'js-cookie';
 import { connect, useDispatch } from 'react-redux';
@@ -26,6 +26,7 @@ const Welcome = (props) => {
     let [userError, setUserError ]              = useState([])
     let [departmentError, setDepartmentError ]  = useState([])
     let history                                 = useHistory();
+    let scrollRef = useRef()
 
     const { register: userForm, handleSubmit: userLogin} = useForm();
     const { register: departmentForm, handleSubmit: departmentLogin } = useForm();
@@ -34,6 +35,10 @@ const Welcome = (props) => {
     useEffect(() => {
         setTimeout(() => setReady(true), 3000)
     }, [])
+
+    const scrollTo = () => {
+        window.scrollTo({ behavior: 'smooth', top: scrollRef.current.offsetTop })
+    }
 
     const setLogin = (user) => {
         dispatch({type:"SET_LOGIN", payload:user})
@@ -191,7 +196,7 @@ const Welcome = (props) => {
     const renderBanner = () => {
         return (
             <Fragment>
-                <section className="best-offer mx-0 px-0" id="best-offer-section">
+                <section className="best-offer mx-0 px-0" id="best-offer-section" ref={scrollRef}>
                     <div className="container-no-p-m" className="overflow-hidden">
                         <div className="row ">
 
@@ -238,10 +243,10 @@ const Welcome = (props) => {
 
                                                 {/* <div className="container-fluid"> */}
                                                     <div className="row justify-content-center mt-lg--8 my-sm-4">
-                                                        <ItemWTooltip component={roundMenu('fas fa-th-large', 'fa-2x', '/', '1')} id={'1'} text={'App Overview'} />
+                                                        <ItemWTooltip component={roundMenu('fas fa-th-large', 'fa-2x', '/overview', '1')} id={'1'} text={'App Overview'} />
                                                         <ItemWTooltip component={roundMenu('fas fa-code-branch', 'fa-2x', '/' , '2')} id={'2'} text={'Project Dependencies'} />
                                                         <ItemWTooltip component={roundMenu('fas fa-project-diagram', 'fa-2x', '/', '3')} id={'3'} text={'Future Planning'} />
-                                                        <ItemWTooltip component={roundMenu('fas fa-address-card', 'fa-2x', '/' , '4')} id={'4'} text={'My   Portfolio'} />
+                                                        <ItemWTooltip component={roundMenu('fas fa-address-card', 'fa-2x', '/about/me' , '4')} id={'4'} text={'My   Portfolio'} />
                                                     </div>
                                                 {/* </div> */}
 
@@ -277,7 +282,7 @@ const Welcome = (props) => {
                                         <h4 className="text-white"><em>- me looking at my bloodstained debug console</em></h4>
                                     </Fade>
                                     <div className="white-border-button">
-                                        <a href="#" className="scroll-link bg-white text-darker text-text-uppercase ls-1" data-id="best-offer-section">try the demo</a>
+                                        <Link to='#' onClick={() => scrollTo()} className="scroll-link bg-white text-darker text-text-uppercase ls-1 border border-black" data-id="best-offer-section">try the demo below</Link>
                                     </div>
                                 </div>
                             </div>

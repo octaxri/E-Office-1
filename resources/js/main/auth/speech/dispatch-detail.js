@@ -19,6 +19,7 @@ import Waiting from '../../../components/waiting/waiting';
 import useOverlay from '../../../components/loading-overlay/state';
 import Fade from 'react-reveal/Fade';
 import PdfContainer from './pdf-container';
+import ItemWTooltip from '../../../components/tooltip/tooltip';
 
 const DispatchDetail = (props) => {
     moment.locale('en');
@@ -87,26 +88,26 @@ const DispatchDetail = (props) => {
     //             })
     // };
 
-    const onReturn = (returnData) => {
-        setOverlayActive(true)
-            Axios.post('/api/dispatch/dispatch-backward' , returnData)
-                .then(res => {
-                    res.data.success ?
-                    setTimeout(() => {
-                        setOverlayActive(false);
-                        toggle(), response(true), message(res.data.success)
-                        setTimeout(() => {
-                            history.push('/dispatch');
-                        }, 2000)
-                    }, 2000)
-                    :
-                    setTimeout(() => {
-                        setOverlayActive(false);
-                        response(false), toggle(), message(res.data.error)
-                    }, 2000)
-                })
-                // console.log(returnData)
-    };
+    // const onReturn = (returnData) => {
+    //     setOverlayActive(true)
+    //         Axios.post('/api/dispatch/dispatch-backward' , returnData)
+    //             .then(res => {
+    //                 res.data.success ?
+    //                 setTimeout(() => {
+    //                     setOverlayActive(false);
+    //                     toggle(), response(true), message(res.data.success)
+    //                     setTimeout(() => {
+    //                         history.push('/dispatch');
+    //                     }, 2000)
+    //                 }, 2000)
+    //                 :
+    //                 setTimeout(() => {
+    //                     setOverlayActive(false);
+    //                     response(false), toggle(), message(res.data.error)
+    //                 }, 2000)
+    //             })
+    //             // console.log(returnData)
+    // };
 
     const onSign = async (signData) => {
         // console.log(signData)
@@ -181,21 +182,22 @@ const DispatchDetail = (props) => {
     const RenderMainContent = () => {
         return(
             <Fragment>
+                {/* <div className="container-fluid"> */}
                 <div className="row">
-                    <div className="col-lg-8 my-2">
-                        <div className="bg-white">
+                    <div className="col-lg-8 col-12 my-2">
+                        <div className="bg-pre-white">
                             <div className="container my-4">
                                 <div className="row">
                                     <div className="col-auto">
-                                        <i className="mt-2 fas fa-list fa-2x px-2 py-2 bg-darker text-white my-auto rounded"></i>
+                                        <i className="mt-2 fas fa-list fa-2x px-2 py-2 bg-gradient-purple text-white my-auto rounded"></i>
                                     </div>
                                     <div className="col">
-                                        <small className="text-uppercase ls-2 font-weight-600 text-yellow-calm" style={{fontSize: '0.7em'}}>data</small>
+                                        <small className="text-uppercase ls-2 font-weight-600 text-purple" style={{fontSize: '0.7em'}}>data</small>
                                         <h2 className="text-darker mt--1">Document Detail Page</h2>
                                     </div>
                                 </div>
                             </div>
-                            <div className="container bg-white">
+                            <div className="container bg-pre-white">
                                 <hr className="my-1" />
                                 <div className="row">
                                     <div className="container mx-0">
@@ -203,10 +205,21 @@ const DispatchDetail = (props) => {
                                     </div>
                                 </div>
                                 <hr className="my-1" />
-                                {errorMessage.error ? null : renderTabContent()}
+                                <div className="row">
+                                    <div className="col-lg-11 col-10">
+                                        {errorMessage.error ? null : renderTabContent()}
+                                    </div>
+                                    <div className="col-lg-1 col-2 border-left w-100">
+                                        <div className="position-lg-fixed position-absolute">
+                                            {renderNavLink()}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        {/* {renderBottomNav()} */}
                     </div>
+
                     <div className="col-lg-4 col-sm-12">
                         {
                             // receiverList.sign_allowed === 1
@@ -226,12 +239,135 @@ const DispatchDetail = (props) => {
                                 userData={user}
                                 permissions={permissions}
                                 apiState={(data)=>setLoadState(data)}
+                                documentData={dispatchData}
                             />
                         }
                         {/* { returnTo.error || errorMessage.error ? null : returnForm()} */}
                     </div>
                 </div>
+                {/* </div> */}
             </Fragment>
+        )
+    }
+
+    const navLink = ({icon, id, href, active=Boolean, selected=Boolean}) => {
+        return (
+            <li className="side-tab nav-item" data-tip data-for={id}>
+                <a className={`nav-link mb-sm-3 mb-md-0 ${active ? 'active' : ''} px-0 py-3`} id={`${id}`} data-toggle="tab" href={`#${href}`} role="tab" aria-selected={`${selected}`}>
+                    <i className={`${icon} text-muted`} style={{fontSize:'2rem'}}></i>
+                </a>
+            </li>
+        )
+    }
+
+    const renderNavLink = () => {
+        return (
+            <>
+                {/* <div className="position-relative" style={{width:'100%'}}> */}
+                    <div className="bg-white">
+                        {/* <div className="nav-wrapper"> */}
+                            <ul className="nav py-4 text-center position-absolute" id="tabs-icons-text" role="tablist">
+                                    <ItemWTooltip
+                                        component={
+                                            navLink({
+                                                icon:'las la-file-alt',
+                                                id:'detail',
+                                                href:'tabs-icons-text-1',
+                                                active:true,
+                                                selected:true
+                                            })
+                                        }
+                                        id={'detail'}
+                                        text={'Document Detail'}
+                                        // type="light"
+                                        place="left"
+                                    />
+
+                                    <ItemWTooltip
+                                        component={
+                                            navLink({
+                                                icon:'las la-paperclip',
+                                                id:'attachment',
+                                                href:'tabs-icons-text-4',
+                                                active:false,
+                                                selected:false
+                                            })
+                                        }
+                                        id={'attachment'}
+                                        text={'Document Attachment'}
+                                        // type="light"
+                                        place="left"
+                                    />
+
+                                    <ItemWTooltip
+                                        component={
+                                            navLink({
+                                                icon:'las la-history',
+                                                id:'history',
+                                                href:'tabs-icons-text-2',
+                                                active:false,
+                                                selected:false
+                                            })
+                                        }
+                                        id={'history'}
+                                        text={'Document Flow History'}
+                                        // type="light"
+                                        place="left"
+                                    />
+
+                                    <ItemWTooltip
+                                        component={
+                                            navLink({
+                                                icon:'las la-edit',
+                                                id:'revision',
+                                                href:'tabs-icons-text-3',
+                                                active:false,
+                                                selected:false
+                                            })
+                                        }
+                                        id={'revision'}
+                                        text={'Document Revision Log'}
+                                        // type="light"
+                                        place="left"
+                                    />
+
+                                    <ItemWTooltip
+                                        component={
+                                            navLink({
+                                                icon:'las la-file-upload',
+                                                id:'upload',
+                                                href:'tabs-icons-text-3',
+                                                active:false,
+                                                selected:false
+                                            })
+                                        }
+                                        id={'upload'}
+                                        text={'Task & Document Upload'}
+                                        // type="light"
+                                        place="left"
+                                    />
+
+                                    <ItemWTooltip
+                                        component={
+                                            navLink({
+                                                icon:'las la-signature',
+                                                id:'sign',
+                                                href:'tabs-icons-text-3',
+                                                active:false,
+                                                selected:false
+                                            })
+                                        }
+                                        id={'sign'}
+                                        text={'Approved Document Signing'}
+                                        // type="light"
+                                        place="left"
+                                    />
+
+                            </ul>
+                        {/* </div> */}
+                    </div>
+                {/* </div> */}
+            </>
         )
     }
 
@@ -362,8 +498,8 @@ const DispatchDetail = (props) => {
         return(
             <Fragment>
             <div className="row mt-4">
-                <div className="col-lg-6 col-sm-12">
-                    <small className="text-uppercase ls-2  font-weight-600 text-yellow-calm" style={{fontSize: '0.6em'}}>requested by :</small>
+                <div className="col-lg-6 col-sm-12 my-auto">
+                    <i className="las la-city text-purple"></i><small className="text-uppercase ls-2  font-weight-600 text-purple" style={{fontSize: '0.6em'}}>&nbsp;requested by :</small>
                     <p className="text-darker font-weight-600 mb-0">{request.origin.name}</p>
                     { request.origin.occupation
                         ?
@@ -375,19 +511,25 @@ const DispatchDetail = (props) => {
 
 
                 </div>
-                <div className="col-lg-6 col-sm-12">
+                <div className="col-lg-6 col-sm-12 my-auto">
                     {/* <small className="text-muted text-uppercase ls-2" style={{fontSize: '0.6em'}}>Tema pidato:</small>
                     <p className="text-darker font-weight-600">{request.theme}</p><br/> */}
 
-                    <small className="text-uppercase ls-2  font-weight-600 text-yellow-calm" style={{fontSize: '0.6em'}}>Subject :</small>
-                    <p className="text-darker font-weight-600">{request.event}</p><br/>
+                    <i className="las la-envelope-open-text text-purple"></i>&nbsp;
+                    <small className="text-uppercase ls-2  font-weight-600 text-purple" style={{fontSize: '0.6em'}}>Subject :</small>
+                    <p className="text-darker font-weight-500" style={{fontSize:'0.9em'}}>{request.event}</p><br/>
+
+                    <i className="las la-file-alt text-purple"></i>&nbsp;
+                    <small className="text-uppercase ls-2  font-weight-600 text-purple" style={{fontSize: '0.6em'}}>Document Serial Number :</small>
+                    <p className="text-primary font-weight-500 ls-1">{speech.document_number}</p><br/>
 
                 </div>
             </div>
-            <hr className="bg-gradient-gray"/>
+            <hr className="bg-gradient-gray my-2"/>
             <div className="row">
-                <div className="col-lg-6 col-sm-12">
-                    <small className="text-uppercase ls-2 font-weight-600 text-yellow-calm" style={{fontSize: '0.6em'}}>receiver (you) :</small><br/>
+                <div className="col-lg-6 col-sm-12 py-4">
+                    <i className="las la-user-check text-purple"></i>&nbsp;
+                    <small className="text-uppercase ls-2 font-weight-600 text-purple" style={{fontSize: '0.6em'}}>receiver (you) :</small><br/>
                     <div className="row">
                         <div className="col-2 my-auto">
                             { speech.receiver.profile ?
@@ -398,31 +540,36 @@ const DispatchDetail = (props) => {
                         <div className="col">
                         <div className="d-inline-flex">
                             <p className="mb-0 text-darker font-weight-600">{speech.receiver.name}</p>
-                            { speech.receiver.occupation
-                                ?
-                                <small className="text-muted text-uppercase my-auto font-weight-600 text-underline" style={{fontSize: '0.6em'}}>
-                                    &nbsp;-&nbsp;{speech.receiver.occupation.occupation_data.name}
-                                </small>
-                                :
-                                ''
-                            }
-                            </div>
+                        </div>
                             <br/>
-                            <small className="text-darker text-uppercase my-auto font-weight-600" style={{fontSize: '0.6em'}}>
-                                {speech.receiver.field.field_data.name}
-                            </small>
+                            <div className="d-inline-block">
+                                {
+                                    speech.receiver.occupation
+                                    ?
+                                    <small className="text-uppercase my-auto font-weight-600 badge badge-pill badge-purple" style={{fontSize: '0.6em'}}>
+                                        {speech.receiver.occupation.occupation_data.name}
+                                    </small>
+                                    :
+                                    ''
+                                }
+                                <small className="text-uppercase my-auto font-weight-600 badge badge-pill badge-purple" style={{fontSize: '0.6em'}}>
+                                    {speech.receiver.field.field_data.name}
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="col">
-                    <small className="text-uppercase ls-2 font-weight-600 text-yellow-calm" style={{fontSize: '0.6em'}}>date received :</small>
+                <div className="col py-4">
+                    <i className="las la-calendar-check text-purple"></i>&nbsp;
+                    <small className="text-uppercase ls-2 font-weight-600 text-purple" style={{fontSize: '0.6em'}}>date received :</small>
                     <p className="mb-0 text-darker font-weight-600">{moment(speech.created_at).format('LLLL')}</p>
                 </div>
             </div>
-            <hr className="bg-gradient-gray"/>
-            <div className="row">
-                <div className="col-lg-6 col-sm-12">
-                <small className="text-uppercase ls-2 font-weight-600 text-yellow-calm" style={{fontSize: '0.6em'}}>forward from:</small>
+            {/* <hr className="bg-gradient-gray"/> */}
+            <div className="row my-4">
+                <div className="col-lg-6 col-sm-12 py-4">
+                <i className="las la-user-clock text-purple"></i>&nbsp;
+                <small className="text-uppercase ls-2 font-weight-600 text-purple" style={{fontSize: '0.6em'}}>forward from:</small>
                     <div className="row my-2">
                         <div className="col-2 align-content-center my-auto">
                             { speech.sender.profile ?
@@ -433,24 +580,35 @@ const DispatchDetail = (props) => {
                         <div className="col">
                             <div className="d-inline-flex">
                                 <p className="text-darker mb-0 font-weight-600">{speech.sender.name}</p>
-                                { speech.sender.occupation
-                                    ?
-                                        <small className="text-muted text-uppercase my-auto font-weight-600 text-underline" style={{fontSize: '0.6em'}}>
-                                            &nbsp;-&nbsp;{speech.sender.occupation.occupation_data.name}
-                                        </small>
-                                    :
-                                        ''
-                                }
+                            </div>
+                            <br/>
+                            <div className="d-inline-block">
+                            { speech.sender.occupation
+                                ?
+                                <small className="text-uppercase my-auto font-weight-600 badge badge-pill badge-purple" style={{fontSize: '0.6em'}}>
+                                    {speech.sender.occupation.occupation_data.name}
+                                </small>
+                                :
+                                ''
+                            }
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-6 col-sm-12">
-                    <small className="text-uppercase ls-2  font-weight-600 text-yellow-calm" style={{fontSize: '0.6em'}}>Message :</small>
-                    <div className="speech-bubble px-3 mt-4">
-                        <small className="text-uppercase text-white ls-2 font-weight-600 text-yellow-calm" style={{fontSize: '0.6em'}}>message:</small>
-                        <p className="text-white font-weight-500">{speech.message}</p>
+                <div className="col-lg-6 col-sm-12 py-4">
+                    {/* <small className="text-uppercase ls-2  font-weight-600 text-purple" style={{fontSize: '0.6em'}}>Message :</small> */}
+                    <div className="container-fluid">
+                        <div className="row speech-bubble py-3">
+                            <div className="col">
+                                {/* <div className=" px-3 mt-4"> */}
+                                    {/* <small className="text-uppercase text-white ls-2 font-weight-600 text-yellow-calm" style={{fontSize: '0.6em'}}>message:</small> */}
+                                    <i className="las la-comments text-white"></i>&nbsp;<small className="text-uppercase ls-2  font-weight-600 text-white" style={{fontSize: '0.6em'}}>Message :</small>
+                                    <p className="text-white font-weight-500" style={{fontSize: '0.8em'}}>{speech.message}</p>
+                                {/* </div> */}
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
             </Fragment>
@@ -460,7 +618,7 @@ const DispatchDetail = (props) => {
     const renderAttachment = () => {
         return (
             <>
-                <small className="text-muted text-uppercase ls-2" style={{fontSize: '0.6em'}}>Dokumen pelengkap :</small><br/>
+                {/* <small className="text-muted text-uppercase ls-2" style={{fontSize: '0.6em'}}>Dokumen pelengkap :</small><br/> */}
                 <PdfContainer
                     isDataExist={request.speech_request_file}
                     pdfLoadMessage={'preparing pdf file'}
@@ -528,30 +686,30 @@ const DispatchDetail = (props) => {
     const renderTabContent = () => {
         return(
             <Fragment>
-                <div className="nav-wrapper">
+                {/* <div className="nav-wrapper">
                     <ul className="nav nav-pills-ct pr-3" id="tabs-icons-text" role="tablist">
                         <li className="nav-item">
                             <a className="nav-link mb-sm-3 mb-md-0 active px-0 py-2" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">
-                                <h3 className="ls-2 text-uppercase text-darker">detail</h3>
+                                <p className="ls-2 text-uppercase text-darker font-weight-600" style={{fontSize: '0.9em'}}>detail</p>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link mb-sm-3 mb-md-0 px-0 py-2" id="tabs-icons-text-4-tab" data-toggle="tab" href="#tabs-icons-text-4" role="tab" aria-controls="tabs-icons-text-4" aria-selected="false">
-                                <h3 className="ls-2 text-uppercase text-darker">attachment</h3>
+                                <p className="ls-2 text-uppercase text-darker font-weight-600" style={{fontSize: '0.9em'}}>attachment</p>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link mb-sm-3 mb-md-0 px-0 py-2" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">
-                                <h3 className="ls-2 text-uppercase text-darker">history</h3>
+                                <p className="ls-2 text-uppercase text-darker font-weight-600" style={{fontSize: '0.9em'}}>history</p>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link mb-sm-3 mb-md-0 px-0 py-2" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false">
-                                <h3 className="ls-2 text-uppercase text-darker">revision</h3>
+                                <p className="ls-2 text-uppercase text-darker font-weight-600" style={{fontSize: '0.9em'}}>revision</p>
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> */}
                 <div className="tab-content" id="myTabContent" style={{height:'100%'}}>
                     <Fade bottom>
                         <div className="tab-pane show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
@@ -582,7 +740,7 @@ const DispatchDetail = (props) => {
         return(
             <Fragment>
                 <div className="my-3" style={{height:'100%'}}>
-                <small className="ls-2 font-weight-500 text-uppercase bg-darker px-1 py-1 rounded text-white">Request</small>
+                <small className="font-weight-500 text-uppercase badge badge-purple px-2 py-1">Request</small>
                 {
                     dispatchLogData.speech_request_log.map(req => (
                         <Fragment key={req.id}>
@@ -829,7 +987,7 @@ const DispatchDetail = (props) => {
                 children={
                     <>
                         <Auth active={menuIsActive}/>
-                        <div className="main-content bg-white">
+                        <div className="main-content bg-pre-white">
                             <Navbar/>
                                 {
                                 ready === false

@@ -3,22 +3,42 @@ import Fade from 'react-reveal/Fade';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
+import moment from 'moment';
 
-const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active, overlayMessage, handleChangeFilter, userData, permissions, apiState}) => {
+const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active, overlayMessage, handleChangeFilter, userData, permissions, apiState, documentData}) => {
 
     let [submitActive, setSubmitActive] = useState(false);
     let [receiverList, setReceiverList] = useState([]);
     let [returnTo, setReturnToData]     = useState([]);
+    let [queueReceiver, setQueueReceiver] = useState({name:'',id:Number});
     let history = useHistory();
+
+    const dispatch = useDispatch()
 
     useEffect(()=> {
         getData()
+        console.log(documentData)
+        // dispatch({type:"SET_DISPATCH_TEST", payload: [{id: 20}]})
     }, [])
 
     const onFileChange = (event) => {
         setFile(event.target.files[0]);
         setFileName(event.target.files[0].name)
         // console.log(event.target.files[0].name)
+    }
+
+    const setReceiver = (e, targetName) => {
+        setQueueReceiver({name:targetName, id:e.target.value})
+        // console.log(e.target.value)
+        dispatch({type:"SET_DISPATCH_QUEUE", payload: {
+                to: id,
+                id: e.target.value,
+                name: targetName,
+                document_number: documentData.speech_data.document_number,
+                queued_at: moment().format()
+            }
+        })
     }
 
     const getData = async () => {
@@ -37,6 +57,7 @@ const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active
     }
 
     const { register, handleSubmit } = useForm();
+    const { register: returnData, handleSubmit: handleReturn } = useForm();
 
     const onSubmit = async (data) => {
         let formData = new FormData();
@@ -63,6 +84,27 @@ const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active
                         response(false), toggle(), message(res.data.error)
                     }, 2000)
                 })
+    };
+
+    const onReturn = (returnData) => {
+        setOverlayActive(true)
+            Axios.post('/api/dispatch/dispatch-backward' , returnData)
+                .then(res => {
+                    res.data.success ?
+                    setTimeout(() => {
+                        setOverlayActive(false);
+                        toggle(), response(true), message(res.data.success)
+                        setTimeout(() => {
+                            history.push('/dispatch');
+                        }, 2000)
+                    }, 2000)
+                    :
+                    setTimeout(() => {
+                        setOverlayActive(false);
+                        response(false), toggle(), message(res.data.error)
+                    }, 2000)
+                })
+                // console.log(returnData)
     };
 
     // const dispatchForm = () => {
@@ -133,7 +175,7 @@ const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active
     const receiverContent = (receiver) => {
         return(
             <Fragment key={receiver.user_id}>
-                <input type="radio" name="to" className="card-input-element-outline" value={receiver.user_id} ref={register} onChange={e => setSubmitActive(true)}/>
+                <input type="radio" name="to" className="card-input-element-outline" value={receiver.user_id} ref={register} onChange={e => setSubmitActive(true)} onClick={e => setReceiver(e, receiver.user_data.name)}/>
                     <div className="card-input py-3" style={{height:'80px'}} >
                         <div className="container-fluid card-cs">
                             <div className="row">
@@ -148,8 +190,8 @@ const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active
                                             }
                                         </div>
                                         <div className="col my-auto">
-                                            <span className="text-darker" style={{fontSize: '1em'}}>{receiver.user_data.name}</span><br/>
-                                            <span className="text-yellow-calm text-uppercase ls-2" style={{fontSize: '0.6em'}}>{receiver.role_data.name}</span>
+                                            <span className="text-dark font-weight-500" style={{fontSize: '0.9rem'}}>{receiver.user_data.name}</span><br/>
+                                            <span className="text-purple text-uppercase ls-2" style={{fontSize: '0.6em'}}>{receiver.role_data.name}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -204,7 +246,7 @@ const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active
                 )
             ))
             :
-            <p className="text-center text-yellow-calm">Loading User Data..</p>
+            <p className="text-center text-purple">Loading User Data..</p>
             // <Fragment></Fragment>
         )
     }
@@ -245,86 +287,130 @@ const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active
         return (
             <>
                 <div className="container-fluid my-2" key="2">
-                    <input className="material-input-inverse bg-lighter" type="text" name="search" placeholder="Find User..." onChange={()=>handleChangeFilter(event)}/>
+                    <input className="material-input-inverse bg-pre-white" type="text" name="search" placeholder="Find User..." onChange={()=>handleChangeFilter(event)}/>
                     <span className="highlight-inverse"></span>
                     <span className="bar-inverse"></span>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input type="hidden" name="id" value={id} ref={register}/>
-                        <div className="card-input-body bg-lighter mx-lg-0 mx-4" style={{minHeight: '10vh',height: '50vh', overflowY:'auto'}}>
+                        <div className="card-input-body bg-pre-white mx-lg-0 mx-4" style={{minHeight: '10vh',height: '50vh', overflowY:'auto'}}>
                                 {renderReceiver()}
                         </div>
-                        <div className="card-input-form bg-lighter px-4 px-lg-3">
+                        <div className="card-input-form bg-pre-white px-4 px-lg-3">
                             {/* <small className="text-yellow-calm font-weight-600 ls-1" style={{fontSize: '0.7em'}}>Message :</small> */}
                             {uploadPDF()}
                             <textarea className="form-control my-2 text-dark" name="message" rows="3" placeholder="Write your Message or Note here..." ref={register}></textarea>
-                            <button type="submit" className="btn bg-yellow-calm btn-block" disabled={submitActive == false ? true : false}>
+                            <div className="row">
+                                <div className="col">
+                                    <button type="submit" className="btn bg-gradient-purple btn-block" disabled={submitActive == false ? true : false}>
+                                        <i className="las la-paper-plane text-white"></i><span className="text-uppercase text-white ls-2">forward</span>
+                                    </button>
+                                </div>
+                                <div className="col">
+                                    <button type="submit" className="btn bg-gradient-primary btn-block" disabled={submitActive == false ? true : false}>
+                                        <i className="las la-tasks text-white"></i><span className="text-uppercase text-white ls-2">queue</span>
+                                    </button>
+                                </div>
+                            </div>
+                            {/* <button type="submit" className="btn bg-gradient-purple btn-block" disabled={submitActive == false ? true : false}>
                                 <span className="text-uppercase text-white ls-2">dispatch request</span>
-                            </button>
+                            </button> */}
                         </div>
                 </form>
             </>
         )
     }
 
-    // const renderReject = () => {
-    //     return (
-    //             receiverList.user.filter(user => user.user_data.name.toUpperCase().includes(textSearch.toUpperCase())).map(receiver => (
-    //             <label key={receiver.user_id} className="hover my-0 py-0" style={{width:'100%'}}>
-    //                 <input type="radio" name="to" className="card-input-element-outline" value={receiver.user_id} ref={register} onChange={e => setSubmitActive(true)}/>
-    //                     <div className="card-input py-3" style={{height:'80px'}} >
-    //                         <div className="container-fluid card-cs">
-    //                             <div className="row">
-    //                                 <div className="col">
-    //                                     <div className="row">
-    //                                         <div className="col-auto my-auto">
-    //                                             { receiver.user_data.profile
-    //                                                 ?
-    //                                                 <img className="avatar-sm rounded-circle" alt="Image placeholder" src={`/argon/img/profile/${receiver.user_data.profile.profile_pic_url}`}/>
-    //                                                 :
-    //                                                 <img className="avatar-sm rounded-circle" alt="Image placeholder" src="/argon/img/profile/default.jpg"/>
-    //                                             }
-    //                                         </div>
-    //                                         <div className="col my-auto">
-    //                                             <span className="text-darker" style={{fontSize: '1em'}}>{receiver.user_data.name}</span><br/>
-    //                                             <span className="text-yellow-calm text-uppercase ls-2" style={{fontSize: '0.6em'}}>{receiver.role_data.name}</span>
-    //                                         </div>
-    //                                     </div>
-    //                                 </div>
-    //                             <div className="col-auto icon text-center"></div>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </label>
-    //     )))
-    // }
+    const renderReject = () => {
+        return (
+            <Fragment>
+                {
+                    returnTo.userData
+                    ?
+                    <>
+                        <input type="hidden" name="id" value={id} ref={returnData}/>
+                        <input type="hidden" name="order" value={receiverList.current_order} ref={returnData}/>
+                        <input type="hidden" name="to" value={returnTo.user_id} ref={returnData}/>
+                        <label key={returnTo.user_id} className="hover my-0 py-0" style={{width:'100%'}}>
+                            <input type="radio" name="to" className="card-input-element-outline" value={returnTo.user_id} ref={returnData} onChange={e => setSubmitActive(true)}/>
+                                <div className="card-input py-3" style={{height:'80px'}} >
+                                    <div className="container-fluid card-cs">
+                                        <div className="row">
+                                            <div className="col">
+                                                <div className="row">
+                                                    <div className="col-auto my-auto">
+                                                        { returnTo.user_data && returnTo.user_data.profile
+                                                            ?
+                                                            <img className="avatar-sm rounded-circle" alt="Image placeholder" src={`/argon/img/profile/${returnTo.user_data.profile.profile_pic_url}`}/>
+                                                            :
+                                                            <img className="avatar-sm rounded-circle" alt="Image placeholder" src="/argon/img/profile/default.jpg"/>
+                                                        }
+                                                    </div>
+                                                    <div className="col my-auto">
+                                                        <span className="text-darker" style={{fontSize: '1em'}}>{returnTo.user_data.name}</span><br/>
+                                                        <span className="text-yellow-calm text-uppercase ls-2" style={{fontSize: '0.6em'}}>{returnTo.role_data.name}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div className="col-auto icon text-center"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </>
+                    :
+                    null
+                }
+            </Fragment>
 
-    // const rejectComponent = () => {
-    //     return (
-    //         <form onSubmit={handleSubmit(onSubmit)}>
-    //             <input type="hidden" name="id" value={id} ref={register}/>
-    //                 <div className="card-input-body bg-lighter mx-lg-0 mx-4" style={{height: '50vh', overflowY:'auto'}}>
-    //                     <Fade bottom>
-    //                         {renderReject()}
-    //                     </Fade>
-    //                 </div>
-    //                 <div className="card-input-form bg-lighter px-4 px-lg-3">
-    //                     <small className="text-yellow-calm font-weight-600" style={{fontSize: '0.7em'}}>Message :</small>
-    //                     <textarea className="form-control my-2 text-dark" name="message" rows="3" placeholder="Reason of document rejection or Return..." ref={register}></textarea>
-    //                     <button type="submit" className="btn bg-red btn-block" disabled={submitActive == false ? true : false}>
-    //                         <span className="text-uppercase text-white ls-2">submit</span>
-    //                     </button>
-    //                 </div>
-    //         </form>
-    //     )
-    // }
+        //         receiverList.user.map(receiver => (
+        //
+        // ))
+            // JSON.stringify(returnTo)
+        )
+    }
+
+    const notAllowed = () => {
+        return (
+            <>
+                <div className="mt-4">
+                    <h4 className="text-dark my-auto text-center font-weight-500">Document return is not allowed yet</h4>
+                </div>
+            </>
+        )
+    }
+
+    const rejectComponent = () => {
+        return (
+            <form onSubmit={handleReturn(onReturn)}>
+                <input type="hidden" name="id" value={id} ref={register}/>
+                    <div className="card-input-body bg-lighter mx-lg-0 mx-4" style={{height: '50vh', overflowY:'auto'}}>
+                        <Fade bottom>
+                            { returnTo && returnTo.error
+                                ?
+                                notAllowed()
+                                :
+                                renderReject()
+                            }
+                        </Fade>
+                    </div>
+                    <div className="card-input-form bg-pre-white px-4 px-lg-3">
+                        <small className="text-yellow-calm font-weight-600" style={{fontSize: '0.7em'}}>Message :</small>
+                        <textarea className="form-control my-2 text-dark" name="message" rows="3" placeholder="Reason of document rejection or Return..." ref={register}></textarea>
+                        <button type="submit" className="btn bg-dark btn-block" disabled={submitActive == false ? true : false}>
+                            <span className="text-uppercase text-white ls-2">submit</span>
+                        </button>
+                    </div>
+            </form>
+        )
+    }
 
     return (
         <>
             {/* <Fade right> */}
-                <div className="col-lg-3 col-sm-12 bg-lighter mx-0 px-0 position-lg-fixed position-sm-absolute shadow" style={{minHeight:'calc(90vh)',maxHeight:'calc(100vh)', right:'0px'}}>
-                <div className="bg-lighter" style={{minWidth:'27vh', maxWidth:'100%'}}>
-                    <div className="card-header bg-lighter">
+                <div className="col-lg-3 col-sm-12 bg-pre-white mx-0 px-0 position-lg-fixed position-sm-absolute shadow" style={{minHeight:'calc(90vh)',maxHeight:'calc(100vh)', right:'0px'}}>
+                <div className="bg-pre-white" style={{minWidth:'27vh', maxWidth:'100%'}}>
+                    <div className="card-header bg-pre-white">
                         {/* <div className="nav-wrapper"> */}
                             <ul className="nav justify-content-between" id="receiver-tab" role="tablist">
                                 <li className="nav-item text-left">
@@ -337,7 +423,7 @@ const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active
                                         aria-controls="tabs-icons-text-1"
                                         aria-selected="true"
                                     >
-                                        <h4 className="text-darker text-uppercase ls-1"><span className="text-yellow-calm">dispatch</span> to :</h4>
+                                        <h4 className="text-darker text-uppercase ls-1"><span className="text-purple">forward</span> to :</h4>
                                     </a>
                                 </li>
                                 <li className="text-right">
@@ -350,7 +436,7 @@ const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active
                                         aria-controls="reject-tab-content"
                                         aria-selected="false"
                                     >
-                                        <h4 className="text-darker text-uppercase ls-1"><span className="text-yellow-calm">return</span> to :</h4>
+                                        <h4 className="text-darker text-uppercase ls-1"><span className="text-purple">return</span> to :</h4>
                                     </a>
                                 </li>
                             </ul>
@@ -361,7 +447,7 @@ const FwdReceiverContainer = ({id, textSearch, toggle, response, message, active
                                 {receiverComponent()}
                             </div>
                             <div className="tab-pane" id="reject-tab-content" role="tabpanel" aria-labelledby="reject-tab-title">
-                                {/* {rejectComponent()} */}
+                                {rejectComponent()}
                         </div>
                     </div>
                 </div>

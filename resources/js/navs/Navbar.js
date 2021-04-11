@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import cookie from 'js-cookie';
 import UserNotification from '../components/notification/notification';
 import Axios from 'axios';
+import DocumentQueue from '../components/queue/queue';
 
 class AuthNavbar extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class AuthNavbar extends Component {
                 <div className="navbar-search navbar-search-dark mr-3 d-none d-md-flex ml-lg-auto"></div>
                     {/* <a className="h4 mb-0 text-uppercase d-none d-lg-inline-block" href="#">Home</a> */}
                     <ul className="navbar-nav align-items-end d-none d-md-flex">
+                    <DocumentQueue color={'text-gray'}/>
                     <UserNotification color={'text-gray'}/>
                         <li className="nav-item dropdown">
                             <a className="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

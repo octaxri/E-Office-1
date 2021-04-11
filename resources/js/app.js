@@ -51,6 +51,7 @@ import PastProjects from './main/guest/about/past-projects';
 import 'react-app-polyfill/stable';
 import ScrollToTop from './components/scroll/ScrollToTop';
 import Resume from './main/guest/about/resume';
+import overview from './main/guest/overview/overview';
 
 let token = cookie.get('token');
 
@@ -120,6 +121,7 @@ let render = () => {
                                 <GuestRoute exact path='/about/skills' component={Skills}/>
                                 <GuestRoute exact path='/about/projects' component={PastProjects}/>
                                 <GuestRoute exact path='/about/resume' component={Resume}/>
+                                <GuestRoute exact path='/overview' component={overview}/>
 
                                 <AuthRoute exact path='/home' component={Home}/>
                                 <AuthRoute exact path='/account-request' component={AccountRequest}/>
