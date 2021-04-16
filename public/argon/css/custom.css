@@ -736,14 +736,15 @@ p .keep-all
 .left-banner-content {
 	padding-top: 175px;
 	padding-bottom: 175px;
-	padding-left: 120px;
+	padding-left: 30px;
+	padding-right: 30px;
 	text-align: left;
 	background-image: url('/argon/img/background/lake-three.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
-	min-height: 680px;
-	height: 680px;
+	/* min-height: 680px; */
+	/* height: 800px; */
 }
 
 /* .left-banner-content > .text-content::after {
@@ -792,17 +793,14 @@ p .keep-all
     padding-left: 15px;
 }
 
-
-
-
 .best-offer {
 	margin-top: 10px;
 }
 
 .best-offer-left-content {
-	min-height: 550px;
-	height: 550px;
-	padding: 80px 40px;
+	/* min-height: 550px; */
+	/* height: 550px; */
+	padding: 60px 30px;
 	text-align: center;
     /* background-image: url('/argon/img/background/lake-four.jpg'); */
     background-image:
@@ -849,8 +847,8 @@ p .keep-all
 .best-offer-right-content {
 	background-color: #eee;
 	padding: 80px 40px;
-	min-height: 550px;
-	height: 550px;
+	/* min-height: 550px; */
+	/* height: 550px; */
 }
 
 .best-offer-right-content h2 {

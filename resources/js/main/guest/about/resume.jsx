@@ -38,12 +38,12 @@ const Resume = () => {
     const skills = () => {
         return (
             <>
-                <div className="row align-content-center pb-6" style={{paddingBottom:'80px'}}>
-                    <div className="col-sm-12 col-lg-8 py-4 px-6 bg-white text-wrap">
+                <div className="row align-content-center h-100">
+                    <div className="col-sm-12 col-lg-8 bg-white h-100 py-4 px-lg-6 px-sm-2 pb-6">
                     <h1 className="text-muted mt-4 ls-3">
                         RESUME &
                     </h1>
-                    <p className="text-purple mb-4 mt-0 ls-4" style={{fontSize:'8vh'}}>
+                    <p className="text-purple mb-4 mt-0 ls-4" style={{fontSize:'6vh'}}>
                         CURRICULUM
                         <span className="text-darker" style={{fontWeight:'lighter!important'}}> VITAE</span>
                     </p>
@@ -52,44 +52,27 @@ const Resume = () => {
                         <h2 className="py-4">
                             <li className="text-purple ls-2 text-uppercase">resume <span><h4 className="text-muted font-weight-500">January 2019 - March 2020</h4></span></li>
                         </h2>
-                        <PdfContainer
-                            isDataExist={true}
-                            pdfLoadMessage={'Loading Resume File'}
-                            url={'/argon/attachments/RESUME.pdf'}
-                        />
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col">
+                                    <PdfContainer
+                                        isDataExist={true}
+                                        pdfLoadMessage={'Loading Resume File'}
+                                        url={'/argon/attachments/RESUME.pdf'}
+                                        />
+                                </div>
+                            </div>
+                        </div>
                     </ol>
 
                     <hr/>
 
-                    <h2 className="text-purple text-about-right my-4 py-4 ls-4">
+                    <h2 className="text-purple text-about-right my-4 py-4 ls-4" style={{fontSize:'6vh'}}>
                         PAST
                         <span className="text-darker"> PROJECTS</span>
                     </h2>
                     <ol className="text-white">
-                        <div className="row my-2">
-                            <div className="col">
-                                    <h4 className="text-purple">
-                                        <li className="pb-4"><span className="ls-2">SIBUK BANGAT</span></li>
-                                        <small className="text-darker font-weight-600">Owner: BAPPEDA PROVINSI JAMBI</small>
-                                        <p className="text-muted"><span className="font-weight-600 text-darker">APP Type :</span> EOFFICE, Online Submission, User & Document Management, Permission Based, Survey Collector, Progress Monitoring</p>
-                                    </h4>
-                            </div>
-                            <div className="col">
-                                <img className="img-fluid shadow" src="/argon/img/projects/1.png" alt="" onClick={()=>{setIsOpen(true), setActiveImage('/argon/img/projects/1.png')}} style={{cursor:'pointer'}}/>
-                            </div>
-                        </div>
-                        <div className="row my-2">
-                            <div className="col">
-                                    <h4 className="text-purple">
-                                        <li className="pb-4"><span className="ls-2">EPIDATO</span></li>
-                                        <small className="text-darker font-weight-600">Owner: BAPPEDA PROVINSI JAMBI</small>
-                                        <p className="text-muted"><span className="font-weight-600 text-darker">APP Type :</span> EOFFICE, Online Submission, User & Document Management, Permission Based, PDF Generator, Email Notification, E-Signature</p>
-                                    </h4>
-                            </div>
-                            <div className="col">
-                                <img className="img-fluid shadow" src="/argon/img/projects/2.png" alt="" onClick={()=>{setIsOpen(true), setActiveImage('/argon/img/projects/2.png')}} style={{cursor:'pointer'}}/>
-                            </div>
-                        </div>
+
                     </ol>
 
                     {isOpen == true && (
@@ -115,7 +98,7 @@ const Resume = () => {
 
                     <Fade top>
                         {/* <div className="no-gutters"> */}
-                        <div className="col-lg-4 col-sm-12 w-100 px-4 py-4 d-lg-block d-none">
+                        <div className="col-lg-4 col-sm-12 bg-dark h-100vh py-4 px-4 d-none d-md-block">
                             <div className="position-fixed">
                                 <div className="about-shape-circle-30 position-absolute bg-white about-icon-animated-2s left-8"></div>
                                 <div className="about-shape-circle-10 position-absolute bg-white about-icon-animated-2s top-6 left-8"></div>
@@ -155,10 +138,9 @@ const Resume = () => {
                 message={isOverlayMessage}
                 children={
                     <>
-                        <div className={theme}>
-                            <div className="container-fluid my-auto justify-content-center">
+                        <div className={`${theme}`}>
+                            <div className="container-fluid my-auto w-100">
                                 { renderMainContent()}
-
                             </div>
                             <BottomNavbar theme={theme}/>
                         </div>

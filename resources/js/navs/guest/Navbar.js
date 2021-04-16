@@ -5,17 +5,19 @@ class GuestNavbar extends Component {
     render() {
         // console.log(authUser)
         return (
-                // <div className="container-fluid" >
+                <div className="container-fluid" >
                     <div className="row py-2 w-100" style={{height:'40px'}}>
                         <div className="col-lg-6 col-sm-12">
                             <div className="row">
-                                <div className="col-auto d-flex align-items-center">
+                                <div className="col-lg-auto col-sm-12 d-flex align-items-center justify-content-center d-flex">
                                     <img src="/argon/img/brand/brand.png" className="my-auto" alt="" style={{width:'100px', height:'80px'}}/>
                                 </div>
-                                <div className="col d-flex align-items-center">
-                                    <p className="my-auto text-uppercase text-darker font-weight-600" href="#">
-                                        OPEN E-OFFICE PROJECT - <span><small className="text-muted">APP Version : 1.0.3</small></span>
-                                    </p>
+                                <div className="col my-auto d-md-none d-lg-block d-none">
+                                    <div className="h-100">
+                                        <p className="my-auto text-uppercase text-darker font-weight-600" href="#">
+                                            OPEN E-OFFICE PROJECT - <span><small className="text-muted">APP Version : 1.0.3</small></span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +35,7 @@ class GuestNavbar extends Component {
                         {/* </div> */}
                     </div>
 
-                // </div>
+                </div>
         );
     }
 }

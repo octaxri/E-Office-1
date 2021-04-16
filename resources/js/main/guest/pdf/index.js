@@ -87,7 +87,7 @@ const Signer = () => {
         return (
             <>
                 <Fade right>
-                <div className="card-body" style={{overflowY:'auto', maxHeight:'90vh'}}>
+                <div className="card-body" style={{overflowY:'auto', height:'90vh'}}>
                     <em><small className="text-lowercase text-darker">*Try to resize & all value will also changes</small></em>
                     <hr className="my-2" />
                     <h4 className="text-yellow-calm font-weight-600 text-uppercase">QR signature</h4>
@@ -176,11 +176,10 @@ const Signer = () => {
     const calculationContainer = () => {
         return (
             <>
-                <div className="col-lg-3 col-sm-12 bg-lighter mx-0 px-0 position-lg-fixed position-sm-absolute shadow" style={{height:'100%', right:'0px'}}>
+                <div className="col-lg-3 col-sm-12 bg-lighter mx-0 px-0 position-lg-fixed position-sm-relative shadow" style={{height:'100%', right:'0px'}}>
                     <div className="bg-lighter" style={{minWidth:'27vh', maxWidth:'100%'}}>
-                        <div className="card-header bg-lighter">
                             {/* <div className="nav-wrapper"> */}
-                                <ul className="nav justify-content-between my-0 py-0" id="receiver-tab" role="tablist">
+                                <ul className="nav justify-content-between my-0 mt-2 px-4" id="receiver-tab" role="tablist">
                                     <li className="nav-item text-left">
                                         <a
                                             className="mb-sm-3 mb-md-0 active"
@@ -196,8 +195,7 @@ const Signer = () => {
                                     </li>
                                 </ul>
                             {/* </div> */}
-                        </div>
-                        <div className="tab-content" id="myTabContent">
+                        <div className="tab-content position-relative" id="myTabContent">
                                 <div className="tab-pane active" id="receiver-tab-content" role="tabpanel" aria-labelledby="receiver-tab-title">
                                     {renderDemoForm()}
                                 </div>

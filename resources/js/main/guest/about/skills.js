@@ -40,23 +40,25 @@ const Skills = () => {
         return (
             <>
                 <div className="col-lg-4 col-sm-12">
-                    <div className="card h-100 my-2 shadow border-0 about-right">
-                        <div className="row h-100">
-                            <div className={`col-auto ${bg} rounded-left py-2`}>
-                                { url ?
-                                    <img src={`${url}`} alt="" style={{height:'80px', width:'80px'}} />
-                                    :
-                                    <i className={`${icon} text-white my-auto`} style={{fontSize:'10vh'}}></i>
-                                }
-                            </div>
-                            <div className="col">
-                                <div className="px-2 py-2">
-                                    <p className="text-uppercase text-darker font-weight-600 my-0">{title}</p>
-                                    <p className="text-muted my-0" style={{fontSize:'0.8em'}}>{sub}</p>
+                    {/* <div className=""> */}
+                        <div className="container-fluid rounded h-100 my-2 shadow border-0 about-right bg-white">
+                            <div className="row h-100">
+                                <div className={`col-4 ${bg} rounded-left py-2 h-100 d-flex justify-content-center`}>
+                                    { url ?
+                                        <img src={`${url}`} alt="" style={{height:'70px', width:'70px'}} />
+                                        :
+                                        <i className={`${icon} text-white my-auto`} style={{fontSize:'9vh'}}></i>
+                                    }
+                                </div>
+                                <div className="col-8">
+                                    <div className="px-2 py-2">
+                                        <p className="text-uppercase text-darker font-weight-600 my-0">{title}</p>
+                                        <p className="text-muted my-0" style={{fontSize:'0.8em'}}>{sub}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {/* </div> */}
                 </div>
             </>
         )
@@ -65,28 +67,30 @@ const Skills = () => {
     const skills = () => {
         return (
             <>
-                <div className="row pb-6"  data-bg-text="WELCOME">
-                    <div className="col-sm-12 col-lg-8 px-6 py-4">
+                <div className="row align-content-center">
+                    <div className="col-sm-12 col-lg-8 h-100 py-4 px-lg-6 px-sm-2 pb-6">
                     <h2 className="text-yellow-calm text-about-right my-4 font-weight-300">
                         <span className="text-white ls-3">SKILLS</span>
                     </h2>
-                    <div className="row">
-                        <div className="col-auto">
-                            <i className="lar la-comments text-white" style={{fontSize:'80px'}}></i>
-                        </div>
-                        <div className="col">
-                            <h2 className="text-white">
-                                <Typewriter
-                                    onInit={(typewriter) => {
-                                        typewriter
-                                        .pauseFor(1000)
-                                        .changeDelay(60)
-                                        .typeString("I Use PHP a lot 'til now, but it actually depends on the App specification..")
-                                        // .delay(50)
-                                        .start()
-                                    }}
-                                />
-                            </h2>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-auto">
+                                <i className="lar la-comments text-white" style={{fontSize:'80px'}}></i>
+                            </div>
+                            <div className="col">
+                                <h2 className="text-white">
+                                    <Typewriter
+                                        onInit={(typewriter) => {
+                                            typewriter
+                                            .pauseFor(1000)
+                                            .changeDelay(60)
+                                            .typeString("I Use PHP a lot 'til now, but it actually depends on the App specification..")
+                                            // .delay(50)
+                                            .start()
+                                        }}
+                                    />
+                                </h2>
+                            </div>
                         </div>
                     </div>
                     {/* <h2 className="text-yellow-calm">
@@ -104,7 +108,7 @@ const Skills = () => {
 
                     <hr className="bg-lighter"/>
                     <h3 className="text-uppercase text-white">programming languange</h3>
-                    <div className="container-fluid">
+                    {/* <div className="container-fluid"> */}
                     <Fade bottom>
                         <div className="row my-4">
                             <SkillCard
@@ -127,7 +131,7 @@ const Skills = () => {
                             />
                         </div>
                     </Fade>
-                    </div>
+                    {/* </div> */}
 
                     <hr className="bg-lighter"/>
                     <h3 className="text-uppercase text-white">backend frameworks</h3>
@@ -236,28 +240,18 @@ const Skills = () => {
                         </Fade>
                     </div>
 
-                    <div className="row">
-                        <div className="col">
-                            <h4 className="text-white my-4">And this : CSS/SCSS , GIT, OpenSSL, Docker, Apache</h4>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col">
+                                <h4 className="text-white my-4">And this : CSS/SCSS , GIT, OpenSSL, Docker, Apache</h4>
+                            </div>
                         </div>
                     </div>
 
-                    <Zoom>
-                        <div className="d-inline-block d-lg-none d-sm-block">
-                            <NavLink exact to={'/'} activeStyle={LinkActive} className="text-uppercase btn btn-link pl-0 mr-4 my-4">Home</NavLink>
-                            <NavLink exact to={'/about'} activeStyle={LinkActive} className="text-uppercase btn btn-link mr-4 my-4">About</NavLink>
-                            <NavLink exact to={`/about/me`} activeStyle={LinkActive} className="btn btn-link mr-4 my-4 text-uppercase ">Bio</NavLink>
-                            <NavLink exact to={`/about/education`} activeStyle={LinkActive} className="btn btn-link mr-4 my-4 text-uppercase ">Education</NavLink>
-                            <NavLink exact to={`${curUrl}`} activeStyle={LinkActive} className="btn btn-link mr-4 my-4 text-uppercase ">Skills</NavLink>
-                            <NavLink to={`/about/projects`} className="btn btn-darker mx-4">
-                                <span className="text-uppercase font-weight-600 ls-2">Past Projects</span>
-                            </NavLink>
-                        </div>
-                    </Zoom>
                     </div>
                     <Fade top>
                         {/* <div className="no-gutters"> */}
-                        <div className="col-lg-4 col-sm-12 w-100 px-4 py-4 d-lg-block d-none">
+                        <div className="col-lg-4 col-sm-12 position-relative h-100vh py-4 px-4 d-none d-lg-block">
                             <div className="position-fixed">
                                 <div className="about-shape-circle-30 position-absolute bg-white about-icon-animated-2s left-8"></div>
                                 <div className="about-shape-circle-10 position-absolute bg-white about-icon-animated-2s top-6 left-8"></div>

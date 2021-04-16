@@ -37,12 +37,12 @@ const PastProjects = () => {
     const skills = () => {
         return (
             <>
-                <div className="row align-content-center pb-6" style={{paddingBottom:'80px'}}>
-                    <div className="col-sm-12 col-lg-8 py-4 px-6 bg-white">
+                <div className="row align-content-center">
+                    <div className="col-sm-12 col-lg-8 bg-white h-100 py-4 px-lg-6 px-sm-2 pb-6">
                     <h1 className="text-muted mt-4 ls-3">
                         PAST PROJECTS &
                     </h1>
-                    <p className="text-purple mb-4 mt-0 ls-4" style={{fontSize:'10vh'}}>
+                    <p className="text-purple mb-4 mt-0 ls-4" style={{fontSize:'6vh'}}>
                         WORK
                         <span className="text-darker" style={{fontWeight:'lighter!important'}}> HISTORY</span>
                     </p>
@@ -51,30 +51,34 @@ const PastProjects = () => {
                         <h2 className="py-4">
                             <li className="text-purple ls-2 text-uppercase">SATUKUNCI <span><h4 className="text-muted font-weight-500">January 2019 - March 2020</h4></span></li>
                         </h2>
-                        <div className="row mb-6">
-                            <div className="col-auto">
-                                <i className="las la-industry text-purple" style={{fontSize:'80px'}}></i>
-                            </div>
-                            <div className="col">
-                                <h3 className="text-default text-uppercase">Work Description :</h3>
-                                <p className="text-muted">As a full stack programmer, i did maintenance, bug fixing including electronic signature and enhancing document template in client's website.</p>
+                        <div className="container-fluid">
+                            <div className="row mb-6">
+                                <div className="col-auto">
+                                    <i className="las la-industry text-purple" style={{fontSize:'80px'}}></i>
+                                </div>
+                                <div className="col">
+                                    <h3 className="text-default text-uppercase">Work Description :</h3>
+                                    <p className="text-muted">As a full stack programmer, i did maintenance, bug fixing including electronic signature and enhancing document template in client's website.</p>
+                                </div>
                             </div>
                         </div>
 
                         <h2 className="my-4 py-4">
                             <li className="text-purple ls-2 text-uppercase">freelance full stack developer <span><h4 className="text-muted font-weight-500">March 2020 - Now</h4></span></li>
                         </h2>
-                        <div className="row">
-                            <div className="col-auto my-auto">
-                                <i className="las la-user-friends text-purple" style={{fontSize:'80px'}}></i>
-                            </div>
-                            <div className="col">
-                                <h3 className="text-default text-uppercase">Work Description :</h3>
-                                <ol className="text-muted">
-                                    <li className="py-2">I Develop web applications according to client's specification, including prototyping, analyzing software requirements, & designing database structure. </li>
-                                    <li className="py-2">Create, testing & integrating API resources within Web Application and Mobile App (Android).</li>
-                                    <li className="py-2">Collaborate with the android programmer, including the App Design & how user interact with our App.</li>
-                                </ol>
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-auto my-auto">
+                                    <i className="las la-user-friends text-purple" style={{fontSize:'80px'}}></i>
+                                </div>
+                                <div className="col">
+                                    <h3 className="text-default text-uppercase">Work Description :</h3>
+                                    <ol className="text-muted">
+                                        <li className="py-2">I Develop web applications according to client's specification, including prototyping, analyzing software requirements, & designing database structure. </li>
+                                        <li className="py-2">Create, testing & integrating API resources within Web Application and Mobile App (Android).</li>
+                                        <li className="py-2">Collaborate with the android programmer, including the App Design & how user interact with our App.</li>
+                                    </ol>
+                                </div>
                             </div>
                         </div>
                     </ol>
@@ -86,28 +90,31 @@ const PastProjects = () => {
                         <span className="text-darker"> PROJECTS</span>
                     </h2>
                     <ol className="text-white">
-                        <div className="row my-2">
-                            <div className="col">
-                                    <h4 className="text-purple">
-                                        <li className="pb-4"><span className="ls-2">SIBUK BANGAT</span></li>
-                                        <small className="text-darker font-weight-600">Owner: BAPPEDA PROVINSI JAMBI</small>
-                                        <p className="text-muted"><span className="font-weight-600 text-darker">APP Type :</span> EOFFICE, Online Submission, User & Document Management, Permission Based, Survey Collector, Progress Monitoring</p>
-                                    </h4>
+
+                        <div className="container-fluid">
+                            <div className="row my-2">
+                                <div className="col-lg-7 col-sm-12">
+                                        <h4 className="text-purple">
+                                            <li className="pb-4"><span className="ls-2">SIBUK BANGAT</span></li>
+                                            <small className="text-darker font-weight-600">Owner: BAPPEDA PROVINSI JAMBI</small>
+                                            <p className="text-muted"><span className="font-weight-600 text-darker">APP Type :</span> EOFFICE, Online Submission, User & Document Management, Permission Based, Survey Collector, Progress Monitoring</p>
+                                        </h4>
+                                </div>
+                                <div className="col-lg-5 col-sm-12">
+                                    <img className="img-fluid shadow" src="/argon/img/projects/1.png" alt="" onClick={()=>{setIsOpen(true), setActiveImage('/argon/img/projects/1.png')}} style={{cursor:'pointer'}}/>
+                                </div>
                             </div>
-                            <div className="col">
-                                <img className="img-fluid shadow" src="/argon/img/projects/1.png" alt="" onClick={()=>{setIsOpen(true), setActiveImage('/argon/img/projects/1.png')}} style={{cursor:'pointer'}}/>
-                            </div>
-                        </div>
-                        <div className="row my-2">
-                            <div className="col">
-                                    <h4 className="text-purple">
-                                        <li className="pb-4"><span className="ls-2">EPIDATO</span></li>
-                                        <small className="text-darker font-weight-600">Owner: BAPPEDA PROVINSI JAMBI</small>
-                                        <p className="text-muted"><span className="font-weight-600 text-darker">APP Type :</span> EOFFICE, Online Submission, User & Document Management, Permission Based, PDF Generator, Email Notification, E-Signature</p>
-                                    </h4>
-                            </div>
-                            <div className="col">
-                                <img className="img-fluid shadow" src="/argon/img/projects/2.png" alt="" onClick={()=>{setIsOpen(true), setActiveImage('/argon/img/projects/2.png')}} style={{cursor:'pointer'}}/>
+                            <div className="row my-2">
+                                <div className="col-lg-7 col-sm-12">
+                                        <h4 className="text-purple">
+                                            <li className="pb-4"><span className="ls-2">EPIDATO</span></li>
+                                            <small className="text-darker font-weight-600">Owner: BAPPEDA PROVINSI JAMBI</small>
+                                            <p className="text-muted"><span className="font-weight-600 text-darker">APP Type :</span> EOFFICE, Online Submission, User & Document Management, Permission Based, PDF Generator, Email Notification, E-Signature</p>
+                                        </h4>
+                                </div>
+                                <div className="col-lg-5 col-sm-12">
+                                    <img className="img-fluid shadow" src="/argon/img/projects/2.png" alt="" onClick={()=>{setIsOpen(true), setActiveImage('/argon/img/projects/2.png')}} style={{cursor:'pointer'}}/>
+                                </div>
                             </div>
                         </div>
                     </ol>
@@ -135,7 +142,7 @@ const PastProjects = () => {
 
                     <Fade top>
                         {/* <div className="no-gutters"> */}
-                        <div className="col-lg-4 col-sm-12 w-100 px-4 py-4 d-lg-block d-none">
+                        <div className="col-lg-4 col-sm-12 position-relative h-100vh py-4 px-4 d-none d-md-block">
                             <div className="position-fixed">
                                 <div className="about-shape-circle-30 position-absolute bg-white about-icon-animated-2s left-8"></div>
                                 <div className="about-shape-circle-10 position-absolute bg-white about-icon-animated-2s top-6 left-8"></div>
@@ -176,9 +183,8 @@ const PastProjects = () => {
                 children={
                     <>
                         <div className={theme}>
-                            <div className="container-fluid my-auto justify-content-center">
+                            <div className="container-fluid my-auto w-100">
                                 { renderMainContent()}
-
                             </div>
                             <BottomNavbar theme={theme}/>
                         </div>

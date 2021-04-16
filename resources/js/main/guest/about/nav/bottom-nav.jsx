@@ -20,9 +20,9 @@ const BottomNavbar = ({theme}) => {
 
     const route = ({to, icon, name, key}) => {
         return (
-            <NavLink key={key} exact to={to} className={`col h-100 align-content-center d-flex justify-content-center bottom-nav ${active(to) ? theme : null }`}>
+            <NavLink key={key} exact to={to} className={`col h-100 py-3 align-content-center d-flex justify-content-center bottom-nav ${active(to) ? theme : null }`}>
                 <h3 className={`my-auto text-uppercase text-center ls-1 ${active(to) ? 'text-white' : 'text-darker' }`}>
-                    <i className={`${icon} my-auto bottom-nav-icon ${active(to) ? 'text-white' : 'text-muted' }`} style={{fontSize:'30px'}}></i><br/>
+                    <i className={`${icon} my-auto bottom-nav-icon ${active(to) ? 'text-white' : 'text-muted' }`} style={{fontSize:'1.2rem'}}></i><br/>
                     <span className="d-lg-block d-none">{name}</span>
                 </h3>
             </NavLink>
@@ -69,18 +69,20 @@ const BottomNavbar = ({theme}) => {
 
     return (
         <>
-            <div className="position-fixed bottom-0 bg-white" style={{height:'80px', width:'100vw'}}>
-                <div className="row shadow h-100">
-                    {
-                        lists.map((list, key) => (
-                            route({
-                                to: list.to,
-                                icon: list.icon,
-                                name: list.name,
-                                key: key
-                            })
-                        ))
-                    }
+            <div style={{height:'80px'}}>
+                <div className="container-fluid position-fixed bottom-0 bg-white">
+                    <div className="row shadow h-100">
+                        {
+                            lists.map((list, key) => (
+                                route({
+                                    to: list.to,
+                                    icon: list.icon,
+                                    name: list.name,
+                                    key: key
+                                })
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
         </>

@@ -91,7 +91,7 @@ const Welcome = (props) => {
                         </div>
                         <input
                             className="form-control no-autofill"
-                            placeholder="Username Anda"
+                            placeholder="Your Email"
                             type="text"
                             name="email"
                             ref={userForm}
@@ -108,7 +108,7 @@ const Welcome = (props) => {
                         </div>
                         <input
                             className="form-control no-autofill"
-                            placeholder="Password Anda"
+                            placeholder="Password"
                             type="password"
                             name="password"
                             ref={userForm}
@@ -143,7 +143,7 @@ const Welcome = (props) => {
                         </div>
                         <input
                             className="form-control  no-autofill"
-                            placeholder="Email Resmi OPD"
+                            placeholder="Email or Dept. Username"
                             type="text"
                             name="email"
                             ref={departmentForm}
@@ -159,7 +159,7 @@ const Welcome = (props) => {
                         </div>
                         <input
                             className="form-control no-autofill"
-                            placeholder="Password Anda"
+                            placeholder="Password"
                             type="password"
                             name="password"
                             ref={departmentForm}
@@ -185,24 +185,26 @@ const Welcome = (props) => {
 
     const roundMenu = (icon, size, to, id) => {
         return (
-            <Link to={to} data-tip data-for={id}>
-                <div className="card card-lift--hover bg-white-calm text-center my-auto align-content-center mx-3 rounded" style={roundIcon}>
-                    <i className={`${icon} ${size} my-auto align-content-center flex-auto text-dark`}></i>
-                </div>
-            </Link>
+            <div className="col-4">
+                <Link to={to} data-tip data-for={id}>
+                    <div className="card card-lift--hover bg-white-calm text-center my-auto align-content-center mx-3 rounded" style={roundIcon}>
+                        <i className={`${icon} ${size} my-auto align-content-center flex-auto text-dark`}></i>
+                    </div>
+                </Link>
+            </div>
         )
     }
 
     const renderBanner = () => {
         return (
             <Fragment>
-                <section className="best-offer mx-0 px-0" id="best-offer-section" ref={scrollRef}>
-                    <div className="container-no-p-m" className="overflow-hidden">
-                        <div className="row ">
+                {/* <section className="best-offer mx-0 px-0" id="best-offer-section"  */}
+                    <div className="container-fluid" ref={scrollRef}>
+                        <div className="row">
 
                             <Fade left>
-                                <div className="col-md-4 mx-0 pl-0 pr-lg-2 pr-0">
-                                    <div className="best-offer-left-content">
+                                <div className="col-lg-4 col-md-6 mx-0 pl-0 pr-lg-2 pr-0">
+                                    <div className="best-offer-left-content h-100">
                                         {/* <div className="icon"><img src="img/best-offer-icon.png" alt=""/></div> */}
                                         <h2 className="text-left"><em>E - Sign<br/></em>Demo Form</h2>
                                         <hr className="bg-white"/>
@@ -220,11 +222,11 @@ const Welcome = (props) => {
                             </Fade>
 
                             <Fade bottom big>
-                                <div className="col-md-8 mx-0 px-0">
-                                    <div className="best-offer-right-content">
+                                <div className="col-lg-8 col-md-6 mx-0 px-0">
+                                    <div className="best-offer-right-content h-100">
                                         <div className="row">
                                             <Fade bottom>
-                                                <div className="col-md-6 col-sm-12">
+                                                <div className="col-lg-6 col-md-12 col-sm-12">
                                                     <h6 className="font-weight-700">About This App</h6>
                                                     <div className="line-dec"></div>
                                                     <h2>Well it's<br/>a Simple <em>E-Office App</em></h2>
@@ -238,19 +240,19 @@ const Welcome = (props) => {
 
                                                 </div>
                                             </Fade>
-                                            <div className="col-md-6 col-sm-12">
+                                            <div className="col-lg-6 col-md-12 col-sm-12">
                                                 <img className="img-fluid d-none d-xs-none d-xl-block" src="/argon/img/background/meadow.jpg" alt=""/>
 
                                                 {/* <div className="container-fluid"> */}
-                                                    <div className="row justify-content-center mt-lg--8 my-sm-4">
+                                                    <div className="row justify-content-center mt-lg--2 my-sm-4">
                                                         <ItemWTooltip component={roundMenu('fas fa-th-large', 'fa-2x', '/overview', '1')} id={'1'} text={'App Overview'} />
                                                         <ItemWTooltip component={roundMenu('fas fa-code-branch', 'fa-2x', '/' , '2')} id={'2'} text={'Project Dependencies'} />
-                                                        <ItemWTooltip component={roundMenu('fas fa-project-diagram', 'fa-2x', '/', '3')} id={'3'} text={'Future Planning'} />
+                                                        {/* <ItemWTooltip component={roundMenu('fas fa-project-diagram', 'fa-2x', '/', '3')} id={'3'} text={'Future Planning'} /> */}
                                                         <ItemWTooltip component={roundMenu('fas fa-address-card', 'fa-2x', '/about/me' , '4')} id={'4'} text={'My   Portfolio'} />
                                                     </div>
                                                 {/* </div> */}
 
-                                                <p style={{fontSize:'250px', lineHeight:'60px', float:'left', color:'#fefefe93'}} className="ls-2 font-weight-600 mt-6 ml--7 d-none d-lg-block">EOFFICE</p>
+                                                {/* <p style={{fontSize:'250px', lineHeight:'60px', float:'left', color:'#fefefe93'}} className="ls-2 font-weight-600 mt-6 ml--7 d-none d-lg-block">EOFFICE</p> */}
                                             </div>
                                         </div>
                                     </div>
@@ -259,7 +261,7 @@ const Welcome = (props) => {
 
                         </div>
                     </div>
-                </section>
+                {/* </section> */}
             </Fragment>
         )
     }
@@ -267,34 +269,32 @@ const Welcome = (props) => {
     const renderMainContent = () => {
         return (
             <Fragment>
-                <div className="header">
-                    <div className="banner">
-                    <div className="container-no-p-m mx-lg-0 mx-sm-0 pt-6">
+                {/* <div className="header"> */}
+                    <div className="container-fluid pt-6">
+                    {/* <div className="banner"> */}
 
                         <div className="row mb-2">
-                        <div className="col-lg-8 col-md-auto col-sm-auto mx-0 px-0 mb-4">
+                        <div className="col-lg-8 col-md-12 col-sm-12 mx-0 px-0 mb-4">
                             <div className="left-banner-content">
                                 <div className="text-content">
                                     <h6>Full Stack Developer</h6>
                                     <div className="line-dec"></div>
                                     <Fade left>
-                                        <h1>Everything Looks Fine, <br/>'til it's Not.</h1>
-                                        <h4 className="text-white"><em>- me looking at my bloodstained debug console</em></h4>
+                                        <p className="text-white" style={{fontSize: '7vh'}}>Everything Looks Fine, <br/>'til it's Not.</p>
+                                        {/* <h4 className="text-white"><em>- me looking at my bloodstained debug console</em></h4> */}
                                     </Fade>
                                     <div className="white-border-button">
                                         <Link to='#' onClick={() => scrollTo()} className="scroll-link bg-white text-darker text-text-uppercase ls-1 border border-black" data-id="best-offer-section">try the demo below</Link>
                                     </div>
                                 </div>
                             </div>
-                            {/* <img src="/argon/img/background/mountains.png" className="img-fluid img-center" style={{backgroundSize: `contain`}}/> */}
                         </div>
+
                         <div className="col-lg-4 col-sm-12 px-4">
 
                             <div className="right-banner-content">
                             <img src="/argon/img/brand/brand.jpg" alt="" style={{width:'150px', height:'130px'}}/>
                             <h5 className="display-4 text-uppercase ls-2 font-weight-300 text-darker">login form</h5>
-                            {/* <div className="shadow"> */}
-                                {/* <div className="card-body bg-transparent"> */}
 
                                 <div className="nav-wrapper">
                                     <ul className="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
@@ -335,7 +335,6 @@ const Welcome = (props) => {
                                             { renderOPDForm() }
                                         </div>
                                     </div>
-                                {/* </div> */}
                             </div>
 
                         </div>
@@ -343,11 +342,13 @@ const Welcome = (props) => {
 
 
                     {/* <FooterLanding /> */}
+                {/* </div> */}
                 </div>
-                </div>
+
                 {renderBanner()}
+
                 {/* {this.renderFooter()} */}
-                <div className="container-fluid bg-gray-calm mt-4 pt-4 pb-4 overflow-hidden">
+                <div className="container-fluid bg-gray-calm mt-4 pt-4 pb-4">
                         <div className="row">
                             <Fade left>
                             <div className="col-lg-4 col-sm-12">
@@ -397,13 +398,12 @@ const Welcome = (props) => {
                                 <h4 className="text-dark text-center my-2 py-2 ls-1">Gerardus Yuda Iswara</h4>
                                 <h4 className="text-center my-2 py-2"><span className="bg-white px-2 py-2 rounded text-darker">ID</span></h4>
                                 <p className="text-center my-2 text-dark">Indonesia</p>
-                                <p style={{fontSize:'200px', lineHeight:'60px', float:'left', color:'#fefefe93'}} className="ls-2 font-weight-600 mt--6 ml--6 d-none d-lg-block">GERARD</p>
                             </div>
                             </Fade>
                         </div>
                 </div>
 
-            </div>
+            {/* </div> */}
         </Fragment>
         );
     }

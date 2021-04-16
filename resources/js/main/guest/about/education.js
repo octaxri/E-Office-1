@@ -32,11 +32,10 @@ const Education = () => {
     const education = () => {
         return (
             <>
-                <div className="row align-content-center bg-text-about pb-6"  data-bg-text="WELCOME">
-                    <div className="col-sm-12 col-lg-8 h-100 py-4 px-6">
+                <div className="row align-content-center">
+                    <div className="col-sm-12 col-lg-8 h-100 py-4 px-lg-6 px-sm-2 pb-6">
 
-
-                                <h2 className="text-about-right my-4">
+                                <h2 className="text-about-right my-4" style={{fontSize:'4vw'}}>
                                     <span className="text-white ls-2">EDUCATION</span>
                                 </h2>
                                 <div className="row">
@@ -138,7 +137,7 @@ const Education = () => {
                     </Zoom> */}
                     </div>
                     <Fade top>
-                        <div className="col-lg-4 col-sm-12 position-relative h-100vh py-4 px-4">
+                        <div className="col-lg-4 col-sm-12 position-relative h-100vh py-4 px-4 d-none d-md-block">
                             <div className="position-fixed">
                                 <div className="about-shape-circle-30 position-absolute bg-white about-icon-animated-2s left-8"></div>
                                 <div className="about-shape-circle-10 position-absolute bg-white about-icon-animated-2s top-6 left-8"></div>

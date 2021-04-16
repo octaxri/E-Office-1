@@ -15,9 +15,16 @@ const overview = (props) => {
     const renderHeader = () => {
         return (
             <>
-                <div className="row bg-dark mb-4">
-                    <div className="col py-6 px-6  text-center">
-                        <p className="text-uppercase text-white" style={{fontSize: '4rem'}}>Slight Application Overview</p>
+                <div className="container-fluid">
+                    <div className="row  mb-4">
+                        <div className="col py-6 text-center">
+                            <p className="text-uppercase text-purple" style={{fontSize: '6vh'}}>Slight Application Overview</p>
+                            <div className="row">
+                                <div className="col">
+                                    <button className="btn rounded text-uppercase bg-gradient-purple text-white"><span className="ls-1">Back Home</span></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </>
@@ -27,33 +34,34 @@ const overview = (props) => {
     const renderOverview = ({title, subtitle, imgUrl, key}) => {
         return (
             <>
-                <div key={key} className="row py-6">
-
-                    <div className={`col-lg-5 h-100 col-sm-12 my-auto px-6 ${!(key % 2) === true ? 'order-lg-last order-sm-last' : 'order-lg-first order-sm-last justify-content-end d-flex'}`}>
-                        <div>
-                            <div className="position-relative" style={{zIndex: '99'}}>
-                                <Fade right>
-                                    <p className="text-uppercase text-purple text-lg-left text-sm-center" style={{fontSize:'3.5rem'}}>{title}</p><br/>
-                                </Fade>
-                                <Fade bottom>
-                                    <p className="text-muted" style={{fontSize: '1.3em'}}>{subtitle}</p>
-                                </Fade>
-                            </div>
-                        </div>
-                    </div>
-                    <Fade left>
-                        <div className={`col-lg-7 px-6 py-4 my-auto ${!(key % 2) === true ? 'order-lg-first order-sm-first' : 'order-lg-last order-sm-first'}`}>
+                <div className="container-fluid">
+                    <div key={key} className="row py-6">
+                        <div className={`col-lg-5 col-sm-12 px-6 my-auto  ${!(key % 2) === true ? 'order-lg-last order-sm-last' : 'order-lg-first order-sm-last justify-content-end d-flex'}`}>
                             <div>
-                                <img className="img-fluid large-shadow about-icon-animated-2s rounded" src={imgUrl} alt="" onClick={()=>{setIsOpen(true), setActiveImage(imgUrl)}} style={{cursor:'pointer'}}/>
-                            </div>
-                            <div className="d-none d-lg-block">
-                                {/* <div className="shape-layer"> */}
-                                    <div className="square"></div>
-                                    <div className="square-1"></div>
-                                {/* </div> */}
+                                <div className="position-relative" style={{zIndex: '99'}}>
+                                    <Fade right>
+                                        <p className="text-uppercase text-purple text-lg-left text-sm-center" style={{fontSize:'6vh'}}>{title}</p><br/>
+                                    </Fade>
+                                    <Fade bottom>
+                                        <p className="text-muted" style={{fontSize: '1.3em'}}>{subtitle}</p>
+                                    </Fade>
+                                </div>
                             </div>
                         </div>
-                    </Fade>
+                        <Fade left>
+                            <div className={`col-lg-7 py-4 px-6 my-auto ${!(key % 2) === true ? 'order-lg-first order-sm-first' : 'order-lg-last order-sm-first'}`}>
+                                <div>
+                                    <img className="img-fluid large-shadow about-icon-animated-2s rounded" src={imgUrl} alt="" onClick={()=>{setIsOpen(true), setActiveImage(imgUrl)}} style={{cursor:'pointer'}}/>
+                                </div>
+                                <div className="d-none d-lg-block">
+                                    {/* <div className="shape-layer"> */}
+                                        <div className="square"></div>
+                                        <div className="square-1"></div>
+                                    {/* </div> */}
+                                </div>
+                            </div>
+                        </Fade>
+                    </div>
                 </div>
             </>
         )
@@ -111,9 +119,8 @@ const overview = (props) => {
 
     return(
         <>
-            <div className="container-fluid">
+
                 {renderMain()}
-            </div>
         </>
     )
 }
