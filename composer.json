@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "7.4.16",
+        "ext-gd": "*",
         "ext-openssl": "*",
         "barryvdh/laravel-dompdf": "^0.8.7",
         "elibyy/tcpdf-laravel": "^7.0",
