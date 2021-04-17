@@ -191,6 +191,7 @@ class UserCertificateController extends Controller
             $tsa = file_get_contents('argon/demo-certificates/tsa.pem');
 
             $pdf = new TCPDI(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+            // $pdf = new TPDF::(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
             $pdf->setTimeStamp($data['tsa_url'], null, null, $tsa);
             $pdf->setSignature($p12['cert'], $p12['pkey'], $data['ca_password'], '', 1, $info, 'A');
