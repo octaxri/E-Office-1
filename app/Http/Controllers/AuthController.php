@@ -41,10 +41,10 @@ class AuthController extends Controller
             if ($token = $this->guard()->attempt($credentials)) {
                 return $this->respondWithToken($token);
             }
-            return response()->json(['error' => 'Email atau Password Salah']);
+            return response()->json(['error' => 'Wrong Email or Password']);
 
         } else {
-            return response()->json(['error' => 'Akun tidak dapat ditemukan atau Form salah!']);
+            return response()->json(['error' => 'Account not found in database or wrong Form!']);
         }
     }
 
@@ -58,10 +58,10 @@ class AuthController extends Controller
             if ($token = $this->guard()->attempt($credentials)) {
                 return $this->respondWithToken($token);
             }
-            return response()->json(['error' => 'Email atau Password Salah']);
+            return response()->json(['error' => 'Wrong Email or Password']);
 
         } else {
-            return response()->json(['error' => 'Akun tidak dapat ditemukan atau Form salah!']);
+            return response()->json(['error' => 'Account not found in database or wrong Form!']);
         }
     }
 
@@ -89,13 +89,13 @@ class AuthController extends Controller
                     $file->move('argon/request',$nama_file);
                     notification::notifyUser(null, $leader->id, 1, $register->id);
 
-                    return response()->json(['success' => 'Registrasi Berhasil'], 200);
+                    return response()->json(['success' => 'Registration Success!'], 200);
                 }
                 else {
-                    return response()->json(['error' => 'Registrasi Gagal. Kepala Badan belum di set oleh sistem!'], 200);
+                    return response()->json(['error' => 'Registration failed! Function is disabled by admin!'], 200);
                 }
             } else {
-                return response()->json(['error' => 'Registrasi Gagal. Silahkan periksa kembali form anda'], 200);
+                return response()->json(['error' => 'Registration failed! Please check your form!'], 200);
             }
 
         }catch(Exception $e){

@@ -1,0 +1,17 @@
+[
+    {
+        "name": "PHP",
+        "version": "7.3.27",
+        "url": "https://www.php.net/archive/2021.php#2021-02-04-1"
+    },
+    {
+        "name": "Laravel",
+        "version": "7.30.4",
+        "url": "https://laravel.com/docs/7.x/releases"
+    },
+    {
+        "name": "Laravel JWT",
+        "version": "1.0.2",
+        "url": "https://github.com/tymondesigns/jwt-auth/releases/tag/1.0.2"
+    }
+]

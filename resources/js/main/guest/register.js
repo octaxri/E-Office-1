@@ -251,7 +251,7 @@ class Register extends Component {
                 </div>
                 <div className="col-lg-3 py-4" style={{background: "url(/argon/img/background/7971.jpg)",backgroundSize:"cover",backgroundRepeat: "no-repeat"}}>
                     <div className="card-body">
-                        <div className="bg-white px-2">
+                        {/* <div className="bg-white px-2">
                             <h4 className="display-4 text-uppercase text-darker ls-2 font-weight-500">keterangan</h4>
                         </div>
                         <ol className="text-white pl-3" style={{fontSize:"0.8em"}}>
@@ -264,7 +264,7 @@ class Register extends Component {
                             <li className="mb-2">
                                 Jika Akun disetujui, akan ada notifikasi email di email yang telah anda registrasikan. Info juga akan ditampilkan di halaman landing E-Pidato
                             </li>
-                        </ol>
+                        </ol> */}
                     </div>
                 </div>
             </Fragment>

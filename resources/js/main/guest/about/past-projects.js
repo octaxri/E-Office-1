@@ -38,6 +38,7 @@ const PastProjects = () => {
         return (
             <>
                 <div className="row align-content-center">
+                <Fade left>
                     <div className="col-sm-12 col-lg-8 bg-white h-100 py-4 px-lg-6 px-sm-2 pb-6">
                     <h1 className="text-muted mt-4 ls-3">
                         PAST PROJECTS &
@@ -85,14 +86,17 @@ const PastProjects = () => {
 
                     <hr/>
 
-                    <h2 className="text-purple text-about-right my-4 py-4 ls-4">
+                    <h2 className="text-purple text-about-right my-4 py-4 ls-4" style={{fontSize:'6vh'}}>
                         PAST
                         <span className="text-darker"> PROJECTS</span>
                     </h2>
+                    <p className="text-darker font-weight-600">Note :
+                        <span className="text-purple font-weight-500"> The Projects listed below is a property that belongs to the rightful owner. Screenshot below in taken when the app is on development, not on production.</span>
+                    </p>
                     <ol className="text-white">
 
                         <div className="container-fluid">
-                            <div className="row my-2">
+                            <div className="row my-3 py-3">
                                 <div className="col-lg-7 col-sm-12">
                                         <h4 className="text-purple">
                                             <li className="pb-4"><span className="ls-2">SIBUK BANGAT</span></li>
@@ -104,7 +108,7 @@ const PastProjects = () => {
                                     <img className="img-fluid shadow" src="/argon/img/projects/1.png" alt="" onClick={()=>{setIsOpen(true), setActiveImage('/argon/img/projects/1.png')}} style={{cursor:'pointer'}}/>
                                 </div>
                             </div>
-                            <div className="row my-2">
+                            <div className="row my-3 py-3">
                                 <div className="col-lg-7 col-sm-12">
                                         <h4 className="text-purple">
                                             <li className="pb-4"><span className="ls-2">EPIDATO</span></li>
@@ -126,19 +130,28 @@ const PastProjects = () => {
                         />
                     )}
 
-                    {/* <Zoom delay={6000}>
-                        <div className="d-inline-block">
-                            <NavLink exact to={'/'} activeStyle={LinkActive} className="text-uppercase btn btn-link pl-0 mr-4 my-4">Home</NavLink>
-                            <NavLink exact to={'/about'} activeStyle={LinkActive} className="text-uppercase btn btn-link mr-4 my-4">About</NavLink>
-                            <NavLink exact to={`/about/me`} activeStyle={LinkActive} className="btn btn-link mr-4 my-4 text-uppercase ">Bio</NavLink>
-                            <NavLink exact to={`/about/education`} activeStyle={LinkActive} className="btn btn-link mr-4 my-4 text-uppercase ">Education</NavLink>
-                            <NavLink exact to={`/about/skills`} activeStyle={LinkActive} className="btn btn-link mr-4 my-4 text-uppercase ">Skills</NavLink>
-                            <NavLink to={`${curUrl}`} className="btn btn-darker mx-4">
-                                <span className="text-uppercase font-weight-600 ls-2">Past Projects</span>
-                            </NavLink>
+                    <h2 className="text-purple text-about-right my-4 py-4 ls-4" style={{fontSize:'6vh'}}>
+                        PERSONAL
+                        <span className="text-darker"> PROJECTS</span>
+                    </h2>
+                    <div className="container-fluid">
+                        <div className="row my-2">
+                            <div className="col-lg-7 col-sm-12">
+                                    <h4 className="text-purple">
+                                        <span className="ls-2">OPEN E-OFFICE PROJECT</span>
+                                        <p className="text-muted"><span className="font-weight-600 text-darker">Description :&nbsp;</span>
+                                         My Latest Project, with new feature including queues and dynamic pdf signing.</p>
+                                    </h4>
+                            </div>
+                            <div className="col-lg-5 col-sm-12">
+                                <img className="img-fluid shadow" src="/argon/img/projects/3.png" alt="" onClick={()=>{setIsOpen(true), setActiveImage('/argon/img/projects/3.png')}} style={{cursor:'pointer'}}/>
+                            </div>
                         </div>
-                    </Zoom> */}
                     </div>
+
+
+                    </div>
+                </Fade>
 
                     <Fade top>
                         {/* <div className="no-gutters"> */}

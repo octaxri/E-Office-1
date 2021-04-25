@@ -1,7 +1,7 @@
 {
     "private": true,
-    "name": "e-speech",
-    "description": "e-pidato Bappeda Provinsi Jambi",
+    "name": "oe-project",
+    "description": "open eoffice project",
     "version": "2.0.0",
     "engines": {
         "node": "8.x"

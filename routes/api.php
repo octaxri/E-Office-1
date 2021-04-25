@@ -139,7 +139,7 @@ Route::group([ 'middleware' => 'api' ], function ($router)
     Route::post('/demo/sign-test-selector', 'UserCertificateController@signTestSelector');
     Route::post('/demo/content', 'UserCertificateController@content');
 
-    Route::get('/data-opd/get', 'OpdController@acceptedAccount');
+    // Route::get('/data-opd/get', 'OpdController@acceptedAccount');
 
     Route::group(['prefix' => 'guest'], function ()
     {

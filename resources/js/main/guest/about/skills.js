@@ -68,6 +68,7 @@ const Skills = () => {
         return (
             <>
                 <div className="row align-content-center">
+                <Fade left>
                     <div className="col-sm-12 col-lg-8 h-100 py-4 px-lg-6 px-sm-2 pb-6">
                     <h2 className="text-yellow-calm text-about-right my-4 font-weight-300">
                         <span className="text-white ls-3">SKILLS</span>
@@ -247,8 +248,9 @@ const Skills = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+                </Fade>
 
-                    </div>
                     <Fade top>
                         {/* <div className="no-gutters"> */}
                         <div className="col-lg-4 col-sm-12 position-relative h-100vh py-4 px-4 d-none d-lg-block">

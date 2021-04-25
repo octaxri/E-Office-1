@@ -39,62 +39,63 @@ const Resume = () => {
         return (
             <>
                 <div className="row align-content-center h-100">
-                    <div className="col-sm-12 col-lg-8 bg-white h-100 py-4 px-lg-6 px-sm-2 pb-6">
-                    <h1 className="text-muted mt-4 ls-3">
-                        RESUME &
-                    </h1>
-                    <p className="text-purple mb-4 mt-0 ls-4" style={{fontSize:'6vh'}}>
-                        CURRICULUM
-                        <span className="text-darker" style={{fontWeight:'lighter!important'}}> VITAE</span>
-                    </p>
+                    <Fade left>
+                        <div className="col-sm-12 col-lg-8 bg-white h-100 py-4 px-lg-6 px-sm-2 pb-6">
+                        <h1 className="text-muted mt-4 ls-3">
+                            RESUME &
+                        </h1>
+                        <p className="text-purple mb-4 mt-0 ls-4" style={{fontSize:'6vh'}}>
+                            CURRICULUM
+                            <span className="text-darker" style={{fontWeight:'lighter!important'}}> VITAE</span>
+                        </p>
 
-                    <ol className="text-purple">
-                        <h2 className="py-4">
-                            <li className="text-purple ls-2 text-uppercase">resume <span><h4 className="text-muted font-weight-500">January 2019 - March 2020</h4></span></li>
-                        </h2>
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col">
-                                    <PdfContainer
-                                        isDataExist={true}
-                                        pdfLoadMessage={'Loading Resume File'}
-                                        url={'/argon/attachments/RESUME.pdf'}
-                                        />
+                        <ol className="text-purple">
+                            <h2 className="py-4">
+                                <li className="text-purple ls-2 text-uppercase">resume</li>
+                            </h2>
+                            <Link className="btn btn-sm bg-gradient-purple shadow" to="/argon/attachments/resume.pdf" target="_blank" download><span className="text-white text-uppercase" style={{fontSize:'0.9em'}}>Download Resume - PDF</span></Link>
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col">
+                                        <PdfContainer
+                                            isDataExist={true}
+                                            pdfLoadMessage={'Loading Resume File'}
+                                            url={'/argon/attachments/RESUME.pdf'}
+                                            />
+                                    </div>
                                 </div>
                             </div>
+
+
+                            <hr/>
+
+
+                            <h2 className="py-4">
+                                <li className="text-purple ls-2 text-uppercase">curriculum vitae</li>
+                            </h2>
+                            <Link className="btn btn-sm bg-gradient-purple shadow" to="/argon/attachments/cv.pdf" target="_blank" download><span className="text-white text-uppercase" style={{fontSize:'0.9em'}}>Download CV - PDF</span></Link>
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col">
+                                        <PdfContainer
+                                            isDataExist={true}
+                                            pdfLoadMessage={'Loading CV File'}
+                                            url={'/argon/attachments/CV.pdf'}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </ol>
+
+                        {isOpen == true && (
+                            <Lightbox
+                                mainSrc={activeImage}
+                                onCloseRequest={() => {setIsOpen(false), setActiveImage('')}}
+                            />
+                        )}
+
                         </div>
-                    </ol>
-
-                    <hr/>
-
-                    <h2 className="text-purple text-about-right my-4 py-4 ls-4" style={{fontSize:'6vh'}}>
-                        PAST
-                        <span className="text-darker"> PROJECTS</span>
-                    </h2>
-                    <ol className="text-white">
-
-                    </ol>
-
-                    {isOpen == true && (
-                        <Lightbox
-                            mainSrc={activeImage}
-                            onCloseRequest={() => {setIsOpen(false), setActiveImage('')}}
-                        />
-                    )}
-
-                    {/* <Zoom delay={6000}>
-                        <div className="d-inline-block">
-                            <NavLink exact to={'/'} activeStyle={LinkActive} className="text-uppercase btn btn-link pl-0 mr-4 my-4">Home</NavLink>
-                            <NavLink exact to={'/about'} activeStyle={LinkActive} className="text-uppercase btn btn-link mr-4 my-4">About</NavLink>
-                            <NavLink exact to={`/about/me`} activeStyle={LinkActive} className="btn btn-link mr-4 my-4 text-uppercase ">Bio</NavLink>
-                            <NavLink exact to={`/about/education`} activeStyle={LinkActive} className="btn btn-link mr-4 my-4 text-uppercase ">Education</NavLink>
-                            <NavLink exact to={`/about/skills`} activeStyle={LinkActive} className="btn btn-link mr-4 my-4 text-uppercase ">Skills</NavLink>
-                            <NavLink to={`${curUrl}`} className="btn btn-darker mx-4">
-                                <span className="text-uppercase font-weight-600 ls-2">Past Projects</span>
-                            </NavLink>
-                        </div>
-                    </Zoom> */}
-                    </div>
+                    </Fade>
 
                     <Fade top>
                         {/* <div className="no-gutters"> */}

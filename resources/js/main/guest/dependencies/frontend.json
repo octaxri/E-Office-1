@@ -1,0 +1,32 @@
+[
+    {
+        "name": "React JS",
+        "version": "17.0.1",
+        "url": "https://github.com/facebook/react/blob/master/CHANGELOG.md#1702-march-22-2021"
+    },
+    {
+        "name": "Redux",
+        "version": "4.0.5",
+        "url": "https://github.com/reduxjs/redux/releases/tag/v4.0.5"
+    },
+    {
+        "name": "Bootstrap",
+        "version": "4.0",
+        "url": "https://github.com/twbs/bootstrap/releases/tag/v4.6.0"
+    },
+    {
+        "name": "React Polyfill",
+        "version": "2.0.0",
+        "url": "https://www.npmjs.com/package/react-app-polyfill"
+    },
+    {
+        "name": "React Router",
+        "version": "5.2.0",
+        "url": "https://github.com/ReactTraining/react-router/releases/tag/v5.2.0"
+    },
+    {
+        "name": "Axios",
+        "version": "0.21.1",
+        "url": "https://github.com/axios/axios/releases/tag/v0.21.1"
+    }
+]

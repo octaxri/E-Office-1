@@ -19,6 +19,8 @@ import useOverlay from '../../components/loading-overlay/state';
 import Overlay from '../../components/loading-overlay/overlay';
 import ItemWTooltip from '../../components/tooltip/tooltip';
 import Fade from 'react-reveal/Fade';
+import { ToastContainer, toast } from 'react-toastify';
+import Toast from '../../components/toast/toast';
 
 const Welcome = (props) => {
     let [ready, setReady]                       = useState(false);
@@ -58,7 +60,8 @@ const Welcome = (props) => {
                     cookie.set("token", res.data.access_token);
                     setLogin(res.data.user);
                 } else {
-                    setUserError(res.data)
+                    // setUserError(res.data)
+                    toast(Toast('las la-times-circle', 'text-danger', res.data.error, 'text-darker'))
                 }
         })
 
@@ -74,8 +77,9 @@ const Welcome = (props) => {
                     history.push('/home');
                 } else {
                     setDepartmentError(res.data)
-                    console.log(data)
-                    console.log(res.data)
+                    toast(Toast('las la-times-circle', 'text-danger', res.data.error, 'text-darker'))
+                    // console.log(data)
+                    // console.log(res.data)
                 }
             })
     }
@@ -127,7 +131,7 @@ const Welcome = (props) => {
             <div className="text-center">
                 <button type="submit" className="btn btn-dark my-4 text-uppercase ls-1"><span className="ls-2">Sign in</span></button>
             </div>
-            <a className="text-darker btn-link text-underline" href="#">Forgot Password?</a>
+            <Link to={'/forgot-password'} className="text-darker btn-link text-underline" href="">Forgot Password?</Link>
         </form>
         )
     }
@@ -178,7 +182,7 @@ const Welcome = (props) => {
             <div className="text-center">
                 <button type="submit" className="btn btn-dark my-4 text-uppercase ls-1"><span className="ls-2">Sign in</span></button>
             </div>
-            <a className="text-darker btn-link text-underline" href="#">Forgot Password?</a>
+            <Link to={'/forgot-password'} className="text-darker btn-link text-underline" href="">Forgot Password?</Link>
         </form>
         )
     }
@@ -206,7 +210,7 @@ const Welcome = (props) => {
                                 <div className="col-lg-4 col-md-6 mx-0 pl-0 pr-lg-2 pr-0">
                                     <div className="best-offer-left-content h-100">
                                         {/* <div className="icon"><img src="img/best-offer-icon.png" alt=""/></div> */}
-                                        <h2 className="text-left"><em>E - Sign<br/></em>Demo Form</h2>
+                                        <h2 className="text-left"><em>E - Sign<br/></em>Demo Form - Static</h2>
                                         <hr className="bg-white"/>
                                         {/* {this.renderDemoForm()} */}
                                         <Demo
@@ -246,7 +250,7 @@ const Welcome = (props) => {
                                                 {/* <div className="container-fluid"> */}
                                                     <div className="row justify-content-center mt-lg--2 my-sm-4">
                                                         <ItemWTooltip component={roundMenu('fas fa-th-large', 'fa-2x', '/overview', '1')} id={'1'} text={'App Overview'} />
-                                                        <ItemWTooltip component={roundMenu('fas fa-code-branch', 'fa-2x', '/' , '2')} id={'2'} text={'Project Dependencies'} />
+                                                        <ItemWTooltip component={roundMenu('fas fa-code-branch', 'fa-2x', '/dependencies' , '2')} id={'2'} text={'Project Dependencies'} />
                                                         {/* <ItemWTooltip component={roundMenu('fas fa-project-diagram', 'fa-2x', '/', '3')} id={'3'} text={'Future Planning'} /> */}
                                                         <ItemWTooltip component={roundMenu('fas fa-address-card', 'fa-2x', '/about/me' , '4')} id={'4'} text={'My   Portfolio'} />
                                                     </div>
@@ -300,12 +304,12 @@ const Welcome = (props) => {
                                     <ul className="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                                         <li className="nav-item">
                                             <a className="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">
-                                                <i className="ni ni-cloud-upload-96 mr-2"></i><span className="ls-2">USER</span>
+                                                <i className="las la-user-lock mr-2"></i><span className="ls-2">USER</span>
                                             </a>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">
-                                                <i className="ni ni-bell-55 mr-2"></i><span className="ls-2">DEPARTMENT</span>
+                                                <i className="las la-city mr-2"></i><span className="ls-2">DEPARTMENT</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -313,25 +317,25 @@ const Welcome = (props) => {
 
                                     <div className="tab-content" id="myTabContent">
                                         <div className="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                                            {userError.error
+                                            {/* {userError.error
                                                 ?
                                                 <div className="alert bg-gradient-danger text-white" role="alert">
                                                     {userError.error}
                                                 </div>
                                                 :
                                                 null
-                                            }
+                                            } */}
                                             {renderUserForm()}
                                         </div>
                                         <div className="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                                            {departmentError.error
+                                            {/* {departmentError.error
                                                 ?
                                                 <div className="alert bg-gradient-warning text-white" role="alert">
                                                     {departmentError.error}
                                                 </div>
                                                 :
                                                 null
-                                            }
+                                            } */}
                                             { renderOPDForm() }
                                         </div>
                                     </div>
@@ -357,7 +361,7 @@ const Welcome = (props) => {
                                     <div className="line-dec"></div>
                                 </div>
                                 <div className="row justify-content-center justify-content-lg-start my-4 my-lg-2">
-                                    <a href="">
+                                    <a href="https://www.linkedin.com/in/gyi-2020v2">
                                         <div className="card bg-white text-center my-auto align-content-center mx-3 card-lift-sm--hover" style={{width:'60px',height:'60px'}}>
                                             <i className="fab fa-linkedin fa-2x my-auto align-content-center flex-auto text-linkedin"></i>
                                         </div>
@@ -454,6 +458,15 @@ const Welcome = (props) => {
                             </FadeIn>
                         }
                     />
+                    <ToastContainer
+                                    position="top-right"
+                                    autoClose={10000}
+                                    hideProgressBar={true}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    draggable
+                                />
 
                     {/* </Overlay> */}
                 </div>

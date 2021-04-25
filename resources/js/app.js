@@ -52,6 +52,8 @@ import 'react-app-polyfill/stable';
 import ScrollToTop from './components/scroll/ScrollToTop';
 import Resume from './main/guest/about/resume';
 import overview from './main/guest/overview/overview';
+import dependencies from './main/guest/dependencies/dependencies';
+import ForgotPassword from './main/guest/password/forgot-password';
 
 let token = cookie.get('token');
 
@@ -113,9 +115,11 @@ let render = () => {
                                 {/* <GuestRoute exact path='/register' component={Register}/> */}
                                 <GuestRoute exact path='/document/check' component={documentCheck}/>
                                 <GuestRoute exact path='/document/:id' component={documentCheckWParam}/>
+                                <GuestRoute exact path='/forgot-password' component={ForgotPassword}/>
 
                                 <GuestRoute exact path='/advanced-signing-demo' component={Signer}/>
                                 <GuestRoute exact path='/about' component={About}/>
+                                <GuestRoute exact path='/dependencies' component={dependencies}/>
                                 <GuestRoute exact path='/about/me' component={Me}/>
                                 <GuestRoute exact path='/about/education' component={Education}/>
                                 <GuestRoute exact path='/about/skills' component={Skills}/>

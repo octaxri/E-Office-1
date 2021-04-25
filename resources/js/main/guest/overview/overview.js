@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback, useMemo } from 'react';
 import Lightbox from 'react-image-lightbox';
 import Fade from 'react-reveal/Fade';
+import { Link } from 'react-router-dom';
 
 const overview = (props) => {
 
@@ -21,7 +22,7 @@ const overview = (props) => {
                             <p className="text-uppercase text-purple" style={{fontSize: '6vh'}}>Slight Application Overview</p>
                             <div className="row">
                                 <div className="col">
-                                    <button className="btn rounded text-uppercase bg-gradient-purple text-white"><span className="ls-1">Back Home</span></button>
+                                    <Link to={'/'} className="btn rounded text-uppercase bg-gradient-purple text-white"><span className="ls-1">Back Home</span></Link>
                                 </div>
                             </div>
                         </div>

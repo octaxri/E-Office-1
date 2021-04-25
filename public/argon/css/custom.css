@@ -1410,6 +1410,12 @@ button.btn-no-bg:active:focus{
     /* bottom: 20em; */
     /* left: 20em; */
 }
+
+.Toastify__toast {
+  border-radius: 8px;
+  background-color: #333;
+  padding: 0px;
+}
 /* .switch-wrapper {
     position: relative;
   }

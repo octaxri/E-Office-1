@@ -12,6 +12,10 @@ import useDimensions from "react-use-dimensions";
 import Fade from 'react-reveal/Fade';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
+// import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.minimal.css';
+import { ToastContainer, toast } from 'react-toastify';
+import Toast from '../../../components/toast/toast';
 
 const Signer = () => {
 
@@ -23,6 +27,11 @@ const Signer = () => {
 
     useEffect(()=>{
         setReady(true)
+
+        setTimeout(()=> {
+            toast(Toast('las la-qrcode', 'text-yellow-calm', 'Please drag the QR in the PDF Container once PDF file loaded..', 'text-darker'))
+            // toast('hei')
+        }, 2000)
     }, [])
 
     const download = (res) => {
@@ -229,6 +238,17 @@ const { isActive, active, isOverlayMessage, overlayMessage} = useOverlay()
                 message={isOverlayMessage}
                 children={
                     <>
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={10000}
+                            hideProgressBar={true}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            draggable
+
+                            // progressClassName='text-purple'
+                        />
                         <Guest active={14}/>
                         <div className="main-content bg-white">
                             <div className="container-fluid">

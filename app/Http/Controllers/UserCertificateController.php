@@ -388,7 +388,7 @@ class UserCertificateController extends Controller
                 $pdf->useTemplate($tpl, null, null, 0, 0, true);
                 if ($request->sign_page == $i) {
                     // $pdf->Image( $data['qr_path'], $scaledXPosition, $scaledYPosition, $pWidth, $pHeight, 'PNG' );
-                    $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,H', $scaledXPosition, $scaledYPosition, $pWidth, $pWidth, $style, 'N');
+                    $pdf->write2DBarcode('Sign Demo OEP - DV Certificate Class 1', 'QRCODE,H', $scaledXPosition, $scaledYPosition, $pWidth, $pWidth, $style, 'N');
                 }
             }
 

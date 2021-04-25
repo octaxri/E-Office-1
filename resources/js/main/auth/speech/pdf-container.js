@@ -54,7 +54,8 @@ const PdfContainer = ({isDataExist, pdfLoadMessage, url, noDataMessage}) => {
                     disabled={pageNumber <= 1}
                     onClick={previousPage}
                 >
-                {pageNumber <= 1 ? null : <><small className="text-uppercase text-darker font-weight-600">Page -&nbsp;{pageNumber - 1}</small></> } Previous
+                {pageNumber <= 1 ? null : <><small className="text-uppercase text-darker font-weight-600">Page -&nbsp;{pageNumber - 1}</small></> }
+                <small className="text-uppercase text-darker font-weight-600">&nbsp;Previous</small>
                 </button>
                 <button
                     className="btn btn-no-bg shadow-none"
@@ -62,7 +63,8 @@ const PdfContainer = ({isDataExist, pdfLoadMessage, url, noDataMessage}) => {
                     disabled={pageNumber >= numPages}
                     onClick={nextPage}
                 >
-                Next {pageNumber >= numPages ? null : <><small className="text-uppercase text-darker font-weight-600">Page -&nbsp;{pageNumber + 1}</small></> }
+                <small className="text-uppercase text-purple font-weight-600">Next&nbsp;</small>
+                {pageNumber >= numPages ? null : <><small className="text-uppercase text-darker font-weight-600">Page -&nbsp;{pageNumber + 1}</small></> }
                 </button>
                 <br/>
             </div>

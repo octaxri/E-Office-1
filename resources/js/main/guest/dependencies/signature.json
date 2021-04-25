@@ -1,0 +1,32 @@
+[
+    {
+        "name": "TCPDF",
+        "version": "6.4.1",
+        "url": "https://github.com/tecnickcom/TCPDF/releases/tag/6.4.1"
+    },
+    {
+        "name": "TCPDI",
+        "version": "1.3.1",
+        "url": "https://github.com/kulbakin/tcpdi/releases/tag/v1.3.1"
+    },
+    {
+        "name": "Laravel CORS",
+        "version": "2.0.2",
+        "url": "https://github.com/fruitcake/laravel-cors/releases/tag/v2.0.2"
+    },
+    {
+        "name": "React Sizeme",
+        "version": "3.0.1",
+        "url": "https://github.com/ctrlplusb/react-sizeme/releases/tag/v3.0.1"
+    },
+    {
+        "name": "PHP ext. GD",
+        "version": "7.3.27",
+        "url": "https://www.php.net/manual/en/book.image.php"
+    },
+    {
+        "name": "PHP ext. OPENSSL",
+        "version": "7.3.27",
+        "url": "https://www.php.net/manual/en/book.openssl.php"
+    }
+]
