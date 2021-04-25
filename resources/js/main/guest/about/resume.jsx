@@ -53,7 +53,7 @@ const Resume = () => {
                             <h2 className="py-4">
                                 <li className="text-purple ls-2 text-uppercase">resume</li>
                             </h2>
-                            <Link className="btn btn-sm bg-gradient-purple shadow" to="/argon/attachments/resume.pdf" target="_blank" download><span className="text-white text-uppercase" style={{fontSize:'0.9em'}}>Download Resume - PDF</span></Link>
+                            <Link className="btn btn-sm bg-gradient-purple shadow" to="/argon/attachments/RESUME.pdf" target="_blank" download><span className="text-white text-uppercase" style={{fontSize:'0.9em'}}>Download Resume - PDF</span></Link>
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col">
@@ -73,7 +73,7 @@ const Resume = () => {
                             <h2 className="py-4">
                                 <li className="text-purple ls-2 text-uppercase">curriculum vitae</li>
                             </h2>
-                            <Link className="btn btn-sm bg-gradient-purple shadow" to="/argon/attachments/cv.pdf" target="_blank" download><span className="text-white text-uppercase" style={{fontSize:'0.9em'}}>Download CV - PDF</span></Link>
+                            <Link className="btn btn-sm bg-gradient-purple shadow" to="/argon/attachments/CV.pdf" target="_blank" download><span className="text-white text-uppercase" style={{fontSize:'0.9em'}}>Download CV - PDF</span></Link>
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col">
